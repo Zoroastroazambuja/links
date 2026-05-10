@@ -1,232 +1,952 @@
-from pathlib import Path
-import re
-from datetime import date
-
-DOMAIN = "https://www.capetaazul.com.br"
-
-PAGES = [
-    {
-        "slug": "curso-colegio-naval",
-        "title": "Curso de Matemática para Colégio Naval | Bruno Pedra",
-        "h1": "Curso de Matemática para o Colégio Naval",
-        "description": "Preparação completa de matemática para o Colégio Naval com teoria, exercícios, simulados e método de alto rendimento com Bruno Pedra.",
-        "cta_text": "Quero conhecer o curso completo",
-        "cta_link": "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-colegio-naval-e-epcar",
-        "sections": [
-            ("O que você vai encontrar", [
-                "Teoria completa e objetiva",
-                "Questões selecionadas e comentadas",
-                "Simulados para treinar no estilo da prova",
-                "Método pensado para concursos militares",
-                "Linha de estudo eficiente e organizada",
-            ]),
-            ("Para quem é este curso", "Para alunos que querem sair da base fraca, organizar o estudo e alcançar nível competitivo para o Colégio Naval."),
-            ("Por que estudar com Bruno Pedra", "Bruno Pedra é professor, autor e especialista em matemática para concursos militares, com foco em desempenho real em prova."),
-        ],
-    },
-    {
-        "slug": "curso-epcar",
-        "title": "Curso de Matemática para EPCAr | Bruno Pedra",
-        "h1": "Curso de Matemática para EPCAr",
-        "description": "Prepare-se para a EPCAr com um curso completo de matemática: teoria, exercícios, estratégia e treinamento direcionado.",
-        "cta_text": "Quero acessar o curso da EPCAr",
-        "cta_link": "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-epcar",
-        "sections": [
-            ("Diferenciais do curso", [
-                "Conteúdo estruturado por assunto",
-                "Foco total na matemática cobrada na EPCAr",
-                "Exercícios comentados",
-                "Simulados para consolidar aprendizado",
-                "Treinamento voltado para aprovação",
-            ]),
-            ("O objetivo", "Levar o aluno do estudo disperso para uma preparação consistente, com base sólida e rendimento crescente."),
-        ],
-    },
-    {
-        "slug": "capeta-azul",
-        "title": "Capeta Azul: Tópicos de Álgebra Elementar | Bruno Pedra",
-        "h1": "Capeta Azul: Tópicos de Álgebra Elementar",
-        "description": "Conheça o Capeta Azul, o famoso livro Tópicos de Álgebra Elementar, referência para estudantes de concursos militares.",
-        "cta_text": "Quero ver o livro",
-        "cta_link": "https://www.mercadolivre.com.br/livro-topicos-de-algebra-elementar-capeta-azul-bruno-pedra/p/MLB67997287",
-        "sections": [
-            ("Por que o Capeta Azul se destaca", [
-                "Conteúdo denso e bem selecionado",
-                "Foco em desenvolvimento real do aluno",
-                "Excelente para concursos militares e provas fortes",
-                "Material reconhecido entre estudantes e professores",
-            ]),
-            ("Para quem é indicado", "Para alunos que querem sair do básico, ganhar profundidade em álgebra e ter contato com um material realmente forte."),
-        ],
-    },
-    {
-        "slug": "matematica-militar",
-        "title": "Matemática para Concursos Militares | Bruno Pedra",
-        "h1": "Matemática para Concursos Militares",
-        "description": "Curso e materiais de matemática para Colégio Naval, EPCAr, AFA, EEAr, EsPCEx, EFOMM e outros concursos militares.",
-        "cta_text": "Quero ver todos os cursos",
-        "cta_link": "https://deusdamatematica.com.br/pt/cursos",
-        "sections": [
-            ("Concursos atendidos", [
-                "Colégio Naval",
-                "EPCAr",
-                "AFA",
-                "EEAr",
-                "EsPCEx",
-                "EFOMM",
-                "Outras provas de alto nível",
-            ]),
-            ("Como funciona a preparação", "O estudo é organizado para atacar os temas essenciais, consolidar teoria e desenvolver segurança por meio da resolução de exercícios e simulados."),
-        ],
-    },
-    {
-        "slug": "simulados-matematica",
-        "title": "Simulados de Matemática para Concursos Militares | Bruno Pedra",
-        "h1": "Simulados de Matemática",
-        "description": "Treine com simulados de matemática voltados para concursos militares e eleve seu nível de preparação.",
-        "cta_text": "Quero acessar o banco de questões",
-        "cta_link": "https://deusdamatematica.com.br/pt/comprar/plano/mensal-50pct-off-banco-10k-questoes",
-        "sections": [
-            ("Benefícios dos simulados", [
-                "Treino de resistência e ritmo de prova",
-                "Identificação de pontos fracos",
-                "Melhora na administração do tempo",
-                "Mais segurança no dia do concurso",
-            ]),
-            ("Por que isso importa", "Simulado é diagnóstico, ajuste de rota e preparação mental para a prova."),
-        ],
-    },
-]
-
-
-def read_root_index() -> str:
-    path = Path("index.html")
-    if not path.exists():
-        raise FileNotFoundError("Não encontrei o arquivo index.html na raiz do repositório.")
-    return path.read_text(encoding="utf-8")
-
-
-def extract_style_block(html: str) -> str:
-    match = re.search(r"(<style>.*?</style>)", html, flags=re.DOTALL | re.IGNORECASE)
-    if match:
-        return match.group(1)
-    return """
-<style>
-body{background:#080808;color:#F2EDE4;font-family:Georgia,serif;margin:0;padding:0}
-.wrap{max-width:860px;margin:0 auto;padding:40px 20px}
-h1,h2{font-family:Arial,sans-serif}
-a{color:#C9A84C}
-.card{background:#101010;border:1px solid rgba(201,168,76,.25);padding:24px;border-radius:8px}
-.btn{display:inline-block;background:#C9A84C;color:#000;text-decoration:none;padding:14px 24px;border-radius:4px;font-weight:bold}
-.topnav{margin-bottom:24px}
-.topnav a{margin-right:14px;text-decoration:none}
-ul{line-height:1.8}
-p{line-height:1.8}
-</style>
-"""
-
-
-def build_nav():
-    links = ['<a href="/">Início</a>']
-    for p in PAGES:
-        links.append(f'<a href="/{p["slug"]}/">{p["h1"]}</a>')
-    return '<div class="topnav">' + " | ".join(links) + "</div>"
-
-
-def render_section(title, content):
-    if isinstance(content, list):
-        items = "\n".join(f"<li>{item}</li>" for item in content)
-        body = f"<ul>{items}</ul>"
-    else:
-        body = f"<p>{content}</p>"
-    return f"<section><h2>{title}</h2>{body}</section>"
-
-
-def build_page_html(style_block: str, page: dict) -> str:
-    sections_html = "\n".join(
-        render_section(section_title, section_content)
-        for section_title, section_content in page["sections"]
-    )
-    canonical = f"{DOMAIN}/{page['slug']}/"
-
-    return f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>{page["title"]}</title>
-<meta name="description" content="{page["description"]}"/>
-<link rel="canonical" href="{canonical}"/>
-{style_block}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capeta Azul — Tópicos de Álgebra Elementar | Bruno Pedra</title>
+    <meta name="description" content="O livro mais temido da álgebra militar. Livro físico, solucionário em vídeo e cursos completos para CN, EPCAr, EFOMM, AFA, EsPCEx, EN, IME e ITA.">
+    <meta name="keywords" content="Capeta Azul, Tópicos de Álgebra Elementar, Bruno Pedra, Colégio Naval, EPCAr, EFOMM, AFA, IME, ITA">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Manrope', sans-serif; scroll-behavior: smooth; }
+        .font-display { font-family: 'Anton', sans-serif; letter-spacing: -0.01em; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .bg-capeta { 
+            background: 
+                radial-gradient(circle at 20% 0%, rgba(59,130,246,0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 100%, rgba(234,179,8,0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #020617 0%, #0a1535 50%, #0f172a 100%);
+        }
+        .text-glow { text-shadow: 0 0 30px rgba(59, 130, 246, 0.7); }
+        .text-glow-yellow { text-shadow: 0 0 25px rgba(255, 230, 0, 0.5); }
+
+        @keyframes float-book {
+            0%, 100% { transform: translateY(0) rotateY(-12deg) rotateX(4deg); }
+            50% { transform: translateY(-15px) rotateY(-8deg) rotateX(0deg); }
+        }
+        .floating-book { animation: float-book 6s ease-in-out infinite; transform-style: preserve-3d; }
+
+        @keyframes float-dash {
+            0%, 100% { transform: translateY(0) perspective(1000px) rotateY(-5deg); }
+            50% { transform: translateY(-15px) perspective(1000px) rotateY(-3deg); }
+        }
+        .floating-dashboard { animation: float-dash 6s ease-in-out infinite; transform-style: preserve-3d; }
+
+        @keyframes slide-in-toast {
+            from { opacity: 0; transform: translateX(-30px) translateY(10px); }
+            to { opacity: 1; transform: translateX(0) translateY(0); }
+        }
+        @keyframes slide-out-toast {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-30px); }
+        }
+        .toast-in { animation: slide-in-toast 0.4s ease-out forwards; }
+        .toast-out { animation: slide-out-toast 0.4s ease-in forwards; }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            50% { box-shadow: 0 0 0 20px rgba(34, 197, 94, 0); }
+        }
+        .pulse-glow { animation: pulse-glow 2s infinite; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        .shake-on-hover:hover { animation: shake 0.4s; }
+
+        .grid-pattern {
+            background-image: linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .stripe-pattern {
+            background: repeating-linear-gradient(45deg, rgba(255,230,0,0.05), rgba(255,230,0,0.05) 10px, transparent 10px, transparent 20px);
+        }
+
+        .scroll-hide::-webkit-scrollbar { display: none; }
+        details[open] summary .icon-plus { transform: rotate(45deg); }
+        .icon-plus { transition: transform 0.3s ease; }
+
+        @keyframes blink-bg {
+            0%, 100% { background-color: #dc2626; }
+            50% { background-color: #ef4444; }
+        }
+        .blink-bg { animation: blink-bg 1.5s infinite; }
+
+        .anchor-glow {
+            box-shadow: 
+                0 0 0 1px rgba(59,130,246,0.3),
+                0 0 60px -10px rgba(59,130,246,0.4),
+                0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+    </style>
 </head>
-<body>
-  <div class="wrap">
-    {build_nav()}
-    <div class="card">
-      <h1>{page["h1"]}</h1>
-      <p>{page["description"]}</p>
-      {sections_html}
-      <p style="margin-top:28px;">
-        <a class="btn" href="{page["cta_link"]}" target="_blank" rel="noopener noreferrer">{page["cta_text"]}</a>
-      </p>
+<body class="bg-slate-50 text-slate-900 antialiased overflow-x-hidden">
+
+<!-- ========== TOP BAR DE PROMOÇÃO ========== -->
+<div class="bg-red-600 text-white text-xs sm:text-sm font-bold py-2 relative z-50 overflow-hidden">
+    <div class="absolute inset-0 stripe-pattern opacity-20"></div>
+    <div class="container mx-auto px-4 flex items-center justify-center gap-3 relative">
+        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+        <span class="hidden sm:inline">⚡ CURSO DE CÁLCULO com 50% OFF — De R$ 659 por R$ 329</span>
+        <span class="sm:hidden">⚡ CÁLCULO 50% OFF</span>
+        <a href="https://deusdamatematica.com.br/pt/cursos/calculo-enefommgraduacao" target="_blank" class="font-mono bg-black/30 hover:bg-black/50 rounded px-2 py-0.5 text-yellow-300 transition">Ver oferta →</a>
     </div>
-  </div>
+</div>
+
+<!-- ========== NAV ========== -->
+<nav class="sticky top-0 w-full z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800">
+    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="text-white font-display text-2xl tracking-tight flex items-center gap-2">
+            <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+            CAPETA AZUL
+        </div>
+        <div class="hidden md:flex gap-7 items-center">
+            <a href="#livro" class="text-sm font-bold text-slate-300 hover:text-white transition">LIVRO</a>
+            <a href="#solucionario" class="text-sm font-bold text-slate-300 hover:text-white transition">SOLUCIONÁRIO</a>
+            <a href="#curso" class="text-sm font-bold text-slate-300 hover:text-white transition">CURSO COMPLETO</a>
+            <a href="#cursos" class="text-sm font-bold text-slate-300 hover:text-white transition">OUTROS CURSOS</a>
+            <a href="#autor" class="text-sm font-bold text-slate-300 hover:text-white transition">AUTOR</a>
+        </div>
+        <a href="#solucionario" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-black px-3 sm:px-5 py-2.5 rounded-lg transition flex items-center gap-2 shadow-lg shadow-blue-600/30">
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+            <span class="hidden sm:inline">VER SOLUCIONÁRIO</span>
+            <span class="sm:hidden">SOLUCIONÁRIO</span>
+        </a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="bg-capeta text-white relative pt-12 pb-20 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-40 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full mix-blend-screen filter blur-[150px] opacity-30 animate-pulse"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Trust badges -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/30 text-yellow-300 text-xs font-bold backdrop-blur-sm">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i> O LIVRO MAIS TEMIDO DA ÁLGEBRA MILITAR
+            </div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-400/10 border border-green-400/30 text-green-300 text-xs font-bold backdrop-blur-sm">
+                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> +1000 APROVADOS
+            </div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-400/10 border border-blue-400/30 text-blue-300 text-xs font-bold backdrop-blur-sm">
+                <span class="flex gap-0.5">★★★★★</span> 5.0 NO MERCADO LIVRE
+            </div>
+        </div>
+
+        <h1 class="font-display text-center text-6xl sm:text-7xl lg:text-9xl text-white leading-[0.9] mb-2 tracking-tighter uppercase">
+            CAPETA AZUL
+        </h1>
+        <p class="text-center text-base sm:text-lg uppercase tracking-[0.3em] text-blue-300 font-bold mb-6">Tópicos de Álgebra Elementar</p>
+        <h2 class="font-display text-center text-3xl sm:text-5xl lg:text-6xl text-blue-400 text-glow leading-[0.95] mb-8 tracking-tighter uppercase max-w-5xl mx-auto">
+            O livro que separa<br/>quem passa de quem desiste.
+        </h2>
+
+        <p class="text-center text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-4 font-medium">
+            Comprou o Capeta Azul e travou nas questões? <strong class="text-white">Você não está sozinho.</strong>
+        </p>
+        <p class="text-center text-base text-yellow-300 mb-12 font-bold">
+            Livro físico • Solucionário em vídeo • Curso completo para <span class="text-white">CN, EPCAr, EFOMM, AFA, EsPCEx, EN, IME e ITA</span>.
+        </p>
+
+        <!-- Os 3 caminhos REAIS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <!-- 01 - LIVRO -->
+            <a href="#livro" class="group relative bg-slate-900/70 backdrop-blur-md border-2 border-slate-700 hover:border-yellow-400 rounded-3xl p-7 transition-all hover:-translate-y-2 flex flex-col text-center overflow-hidden">
+                <div class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.3em] mb-3">01 · Ainda não tenho</div>
+                <div class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 mx-auto border border-yellow-400/30">
+                    <i data-lucide="book" class="w-7 h-7 text-yellow-400"></i>
+                </div>
+                <h3 class="font-display text-2xl text-white mb-2 uppercase">Quero o livro físico</h3>
+                <p class="text-slate-400 mb-5 text-sm">Compre o Tópicos de Álgebra Elementar, o famoso Capeta Azul.</p>
+                <div class="text-xs text-slate-500 mb-1">Disponível no</div>
+                <div class="font-display text-2xl text-yellow-400 mb-5">Mercado Livre</div>
+                <div class="mt-auto px-4 py-3 bg-slate-800 group-hover:bg-yellow-400 group-hover:text-slate-900 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                    Ver no ML <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <!-- 02 - SOLUCIONÁRIO (DESTAQUE - oferta principal) -->
+            <a href="#solucionario" class="group relative bg-gradient-to-b from-blue-600 to-blue-800 border-2 border-blue-400 rounded-3xl p-7 transition-all hover:-translate-y-3 flex flex-col text-center overflow-hidden anchor-glow md:scale-105 md:-mt-3 md:mb-3">
+                <div class="absolute top-0 inset-x-0 -translate-y-1/2 flex justify-center">
+                    <div class="bg-yellow-400 text-slate-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                        🎯 OFERTA PRINCIPAL
+                    </div>
+                </div>
+                <div class="text-[10px] font-mono text-blue-200 uppercase tracking-[0.3em] mb-3 mt-2">02 · Já tenho o livro</div>
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-5 mx-auto border border-white/30">
+                    <i data-lucide="monitor-play" class="w-7 h-7 text-white"></i>
+                </div>
+                <h3 class="font-display text-2xl text-white mb-2 uppercase">Quero as resoluções</h3>
+                <p class="text-blue-100 mb-5 text-sm">Estude as questões em vídeo e entenda o caminho das soluções.</p>
+                <div class="flex items-baseline justify-center gap-2 mb-1">
+                    <div class="text-xs text-blue-200">6× de</div>
+                    <div class="font-display text-3xl text-yellow-400">R$ 60</div>
+                </div>
+                <div class="text-xs text-blue-200 mb-5">5% de desconto à vista</div>
+                <div class="mt-auto px-4 py-3 bg-yellow-400 group-hover:bg-yellow-300 text-slate-900 font-black rounded-xl flex items-center justify-center gap-2 transition-colors shake-on-hover">
+                    ACESSAR SOLUCIONÁRIO <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <!-- 03 - CURSO COMPLETO -->
+            <a href="#curso" class="group relative bg-slate-900/70 backdrop-blur-md border-2 border-slate-700 hover:border-green-400 rounded-3xl p-7 transition-all hover:-translate-y-2 flex flex-col text-center overflow-hidden">
+                <div class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.3em] mb-3">03 · Quero aprovação</div>
+                <div class="w-14 h-14 bg-green-400/10 rounded-2xl flex items-center justify-center mb-5 mx-auto border border-green-400/30">
+                    <i data-lucide="anchor" class="w-7 h-7 text-green-400"></i>
+                </div>
+                <h3 class="font-display text-2xl text-white mb-2 uppercase">Curso CN + EPCAr</h3>
+                <p class="text-slate-400 mb-5 text-sm">Preparação completa: teoria, exercícios, simulados e resoluções.</p>
+                <div class="flex items-baseline justify-center gap-2 mb-1">
+                    <div class="text-xs text-slate-400">12× de</div>
+                    <div class="font-display text-3xl text-green-400">R$ 83</div>
+                </div>
+                <div class="text-xs text-slate-500 mb-5">ou R$ 1.397 à vista</div>
+                <div class="mt-auto px-4 py-3 bg-slate-800 group-hover:bg-green-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                    Ver curso <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Stats reais -->
+        <div class="mt-16 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900/40 backdrop-blur-sm">
+                <div class="font-display text-3xl sm:text-4xl text-yellow-400 mb-1">18+</div>
+                <div class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400">Anos de Ensino</div>
+            </div>
+            <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900/40 backdrop-blur-sm">
+                <div class="font-display text-3xl sm:text-4xl text-yellow-400 mb-1">6</div>
+                <div class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400">Livros Publicados</div>
+            </div>
+            <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900/40 backdrop-blur-sm">
+                <div class="font-display text-3xl sm:text-4xl text-yellow-400 mb-1">+1000</div>
+                <div class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400">Alunos Aprovados</div>
+            </div>
+            <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900/40 backdrop-blur-sm">
+                <div class="font-display text-3xl sm:text-4xl text-yellow-400 mb-1">4🥇</div>
+                <div class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400">Medalhas do Autor</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ========== APROVAÇÕES (PROVA SOCIAL) ========== -->
+<div class="bg-slate-900 border-y border-slate-800 py-10">
+    <div class="container mx-auto px-6 text-center">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-5">Concursos atendidos:</p>
+        <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 max-w-5xl mx-auto">
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">CN ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">EPCAr ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">AFA ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">EEAr ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">EFOMM ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">EN ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">IME ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">ITA ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">EsPCEx ✓</span>
+            <span class="font-display text-lg md:text-xl text-slate-300 tracking-wider px-4 py-2 bg-slate-800 rounded-lg">AMAN ✓</span>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROBLEMA → SOLUÇÃO ========== -->
+<section class="py-24 bg-gradient-to-b from-slate-50 to-white">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-12">
+            <p class="text-xs font-bold text-red-600 uppercase tracking-[0.2em] mb-3">O problema de estudar sozinho</p>
+            <h2 class="font-display text-4xl md:text-6xl text-slate-900 mb-6 uppercase leading-none">
+                Você tem o Capeta Azul,<br/>
+                <span class="text-blue-600">mas algumas questões parecem impossíveis?</span>
+            </h2>
+            <p class="text-lg text-slate-600 leading-relaxed">
+                <strong>Isso é normal.</strong> O Capeta Azul foi feito para elevar seu nível de raciocínio. Mas estudar sozinho pode ser <strong class="text-red-600">lento, frustrante e cheio de travas</strong>.
+            </p>
+            <p class="text-lg text-slate-700 mt-4 leading-relaxed">
+                Por isso o <strong class="text-blue-600">solucionário em vídeo</strong> mostra o caminho das questões passo a passo — com ideias, atalhos e estratégias de prova reais.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mt-12">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="text-4xl mb-2">📘</div>
+                <h4 class="font-display text-xl text-slate-900 mb-1 uppercase">O livro atrai</h4>
+                <p class="text-sm text-slate-600">Álgebra forte para concursos</p>
+            </div>
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 text-center">
+                <div class="text-4xl mb-2">🎥</div>
+                <h4 class="font-display text-xl text-blue-900 mb-1 uppercase">O vídeo destrava</h4>
+                <p class="text-sm text-blue-700">Aprenda o raciocínio completo</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="text-4xl mb-2">⚓</div>
+                <h4 class="font-display text-xl text-slate-900 mb-1 uppercase">O curso aprofunda</h4>
+                <p class="text-sm text-slate-600">CN, EPCAr, AFA, EN, EFOMM</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PARA QUEM É / NÃO É ========== -->
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">QUALIFICAÇÃO</p>
+            <h2 class="font-display text-5xl md:text-6xl text-slate-900 mb-4 uppercase">Não é pra qualquer um.</h2>
+            <p class="text-lg text-slate-600">O Capeta Azul é brutal. Antes de comprar, leia com atenção:</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div class="bg-green-50 border-2 border-green-200 rounded-3xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center">
+                        <i data-lucide="check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-slate-900 uppercase">Pra você se...</h3>
+                </div>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><span>Está mirando <strong>CN, EPCAr, EFOMM, AFA, EN, IME ou ITA</strong></span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><span>Quer um material com <strong>conteúdo denso e bem selecionado</strong></span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><span>Procura <strong>desenvolvimento real</strong>, não decoreba</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><span>Quer <strong>sair do básico</strong> e ganhar profundidade em álgebra</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i><span>Está disposto a estudar de verdade — não só "passar o olho"</span></li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 border-2 border-red-200 rounded-3xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center">
+                        <i data-lucide="x" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="font-display text-2xl text-slate-900 uppercase">NÃO é pra você se...</h3>
+                </div>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="x-circle" class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"></i><span>Quer um livro <strong>"básico"</strong> ou de revisão fácil</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="x-circle" class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"></i><span>Procura uma "fórmula mágica" sem esforço</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="x-circle" class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"></i><span>Não pretende <strong>realmente estudar</strong> Álgebra</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="x-circle" class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"></i><span>Espera apenas memorizar fórmulas para uma prova</span></li>
+                    <li class="flex items-start gap-3 text-slate-700"><i data-lucide="x-circle" class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"></i><span>Quer concorrer com <strong>candidatos medianos</strong></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SEÇÃO 1: LIVRO ========== -->
+<section id="livro" class="py-24 bg-gradient-to-b from-slate-100 to-white relative overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="container mx-auto px-6 relative">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="flex-1 w-full flex justify-center py-10">
+                <div class="floating-book relative w-72 h-[440px] bg-gradient-to-br from-blue-700 to-slate-900 rounded-r-xl rounded-l-sm shadow-[25px_25px_50px_rgba(0,0,0,0.4)] border-l-8 border-slate-950 flex flex-col justify-between p-8">
+                    <div class="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-transparent to-black/40"></div>
+                    <div class="text-center mt-6">
+                        <p class="text-blue-200 text-[10px] uppercase tracking-widest mb-4 font-bold border-b border-blue-500/30 pb-2 inline-block">Bruno Pedra · Alex Ricardo · Ivan Monteiro</p>
+                        <h3 class="font-display text-5xl text-white leading-none tracking-tighter mb-1">CAPETA</h3>
+                        <h3 class="font-display text-5xl text-yellow-400 leading-none tracking-tighter text-glow-yellow">AZUL</h3>
+                    </div>
+                    <div class="text-center mb-4">
+                        <p class="text-slate-100 text-sm font-bold bg-blue-900/50 py-1 px-2 rounded backdrop-blur-sm mb-2">Tópicos de Álgebra Elementar</p>
+                        <p class="text-slate-300 text-xs font-semibold">CN • EPCAr • AFA • EFOMM • EN • IME</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 font-bold text-xs rounded-full mb-4 border border-yellow-300 uppercase tracking-wide">
+                    <i data-lucide="book-open" class="w-3.5 h-3.5"></i> 01 · Livro Físico
+                </div>
+                <h2 class="font-display text-5xl md:text-6xl text-slate-900 mb-6 uppercase leading-none">O clássico que <span class="text-yellow-500">não perdoa</span> a concorrência.</h2>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    O Capeta Azul é referência entre estudantes de concursos militares. Conteúdo <strong>denso e bem selecionado</strong>, com foco em <strong>desenvolvimento real</strong> do aluno.
+                </p>
+
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i><span class="text-slate-700"><strong class="text-slate-900">Conteúdo denso</strong> — material reconhecido entre estudantes e professores</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i><span class="text-slate-700"><strong class="text-slate-900">Tipografia LaTeX impecável</strong> — leitura matemática profissional</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i><span class="text-slate-700"><strong class="text-slate-900">Envio rápido pelo Mercado Livre</strong> — chega em poucos dias</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i><span class="text-slate-700"><strong class="text-slate-900">5 estrelas no Mercado Livre</strong> — milhares de leitores satisfeitos</span></li>
+                </ul>
+
+                <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                    <a href="https://www.mercadolivre.com.br/livro-topicos-de-algebra-elementar-capeta-azul-bruno-pedra/p/MLB67997287" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-3 bg-[#FFE600] hover:bg-[#FFD100] text-slate-900 font-black py-4 px-8 rounded-xl shadow-lg transition-transform hover:-translate-y-1 w-full sm:w-auto">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Comprar no Mercado Livre
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500 mt-3">📦 Compra processada pelo Mercado Livre · ⭐ 5/5 avaliações</p>
+
+                <!-- Outros livros -->
+                <div class="mt-10 pt-8 border-t border-slate-200">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Veja também (mesmo autor):</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <a href="https://clubedeautores.com.br/livro/topicos-de-geometria-elementar-2" target="_blank" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg font-semibold text-slate-700 transition">📗 Geometria Elementar</a>
+                        <a href="https://clubedeautores.com.br/livro/topicos-elementares-combinatoria-probabilidade-e-binomio-de-newton" target="_blank" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg font-semibold text-slate-700 transition">📙 Combinatória e Prob.</a>
+                        <a href="https://clubedeautores.com.br/livro/topicos-elementares-numeros-complexos-e-polinomios-2" target="_blank" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg font-semibold text-slate-700 transition">📕 Números Complexos</a>
+                        <a href="https://clubedeautores.com.br/livro/topicos-elementares-sequencias-matriz-determinante-e-sistema-linear" target="_blank" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg font-semibold text-slate-700 transition">📒 Sequências e Matrizes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SEÇÃO 2: SOLUCIONÁRIO (DESTAQUE PRINCIPAL) ========== -->
+<section id="solucionario" class="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600 rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
+    
+    <div class="container mx-auto px-6 relative">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 text-slate-900 font-black text-xs rounded-full mb-6 uppercase tracking-wider">
+                <i data-lucide="zap" class="w-4 h-4 fill-current"></i> Oferta principal · Para quem já tem o livro
+            </div>
+            <h2 class="font-display text-5xl md:text-7xl text-white mb-4 uppercase leading-[0.9]">
+                Pare de só conferir respostas.<br/>
+                <span class="text-blue-400 text-glow">Aprenda o raciocínio.</span>
+            </h2>
+            <p class="text-lg text-slate-400 mt-4">
+                O <strong class="text-white">Solucionário Capeta Azul em Vídeo</strong> resolve as questões passo a passo. <strong class="text-white">O autor</strong> vira o seu professor particular.
+            </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row-reverse items-center gap-16 max-w-6xl mx-auto">
+            <div class="flex-1 w-full max-w-lg lg:max-w-none">
+                <div class="floating-dashboard relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-950 px-4 py-3 flex items-center gap-2 border-b border-slate-800">
+                        <div class="flex gap-1.5"><div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-yellow-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div></div>
+                        <div class="mx-auto bg-slate-800 text-slate-400 text-xs px-3 py-1 rounded-md flex items-center gap-2">
+                            <i data-lucide="lock" class="w-3 h-3"></i> deusdamatematica.com.br
+                        </div>
+                    </div>
+                    <div class="relative aspect-video bg-slate-950 flex items-center justify-center group overflow-hidden">
+                        <div class="absolute inset-0 bg-[#1e293b] opacity-80 flex flex-col justify-center items-center p-8">
+                            <div class="text-blue-400/30 text-3xl font-mono w-full text-center">$$\int_a^b f(x)dx$$<br/><span class="text-2xl">$$A \cup B$$</span></div>
+                        </div>
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center z-10 cursor-pointer shadow-[0_0_30px_rgba(37,99,235,0.6)] group-hover:scale-110 transition-transform">
+                            <i data-lucide="play" class="w-8 h-8 text-white fill-current ml-1"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-800"><div class="h-full bg-blue-500 w-[35%]"></div></div>
+                    </div>
+                    <div class="p-5 bg-slate-900 border-t border-slate-800">
+                        <h3 class="text-white font-bold text-lg flex justify-between items-center">
+                            Solucionário · Tópicos de Álgebra
+                            <span class="text-xs font-normal px-2 py-1 bg-blue-900/50 text-blue-300 rounded">Em vídeo</span>
+                        </h3>
+                        <div class="mt-4 flex items-center justify-between text-sm text-slate-400">
+                            <span class="flex items-center gap-1"><i data-lucide="file-video" class="w-4 h-4"></i> Resolução completa</span>
+                            <span class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4"></i> Acesso liberado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1">
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"></i><span class="text-slate-300"><strong class="text-white">Resolução completa em vídeo</strong> — todas as questões destrinchadas</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"></i><span class="text-slate-300"><strong class="text-white">Ideias, atalhos e estratégias</strong> de prova reais</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"></i><span class="text-slate-300"><strong class="text-white">Aprenda o raciocínio</strong> — não decoreba de fórmula</span></li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"></i><span class="text-slate-300"><strong class="text-white">Multi-dispositivo</strong> — celular, tablet ou pc</span></li>
+                </ul>
+
+                <!-- Card de preço -->
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 mb-6">
+                    <div class="flex items-baseline gap-3 mb-2">
+                        <div class="text-sm text-slate-400">a partir de</div>
+                        <div class="font-display text-5xl text-yellow-400 text-glow-yellow">6× R$60</div>
+                    </div>
+                    <div class="text-sm text-slate-400">ou à vista com <strong class="text-green-400">5% de desconto</strong></div>
+                </div>
+
+                <a href="https://deusdamatematica.com.br/pt/cursos/solucionario-capeta-azul" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-black py-5 px-10 rounded-xl shadow-2xl shadow-blue-600/40 transition-transform hover:-translate-y-1 w-full sm:w-auto pulse-glow">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i> QUERO DOMINAR O LIVRO
+                </a>
+                <p class="text-xs text-slate-500 mt-4 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-green-400"></i> Acesso imediato após pagamento</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SEÇÃO 3: CURSO COMPLETO ========== -->
+<section id="curso" class="py-24 bg-gradient-to-b from-emerald-50 to-white relative overflow-hidden">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-black text-xs rounded-full mb-6 uppercase tracking-wider">
+                <i data-lucide="anchor" class="w-4 h-4"></i> Para quem quer aprovação
+            </div>
+            <h2 class="font-display text-5xl md:text-7xl text-slate-900 mb-4 uppercase leading-[0.9]">
+                Curso Completo<br/>
+                <span class="text-green-600">CN + EPCAr</span>
+            </h2>
+            <p class="text-lg text-slate-600 mt-4">
+                Preparação completa: <strong>álgebra · geometria · aritmética · solucionários · simulados inéditos</strong>. Do básico ao avançado.
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl border-2 border-green-400/30">
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-xs font-bold text-green-400 uppercase tracking-[0.2em] mb-4">📦 O que está incluso:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Álgebra completa</strong> — toda a base</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Geometria completa</strong> — plana e espacial</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Aritmética</strong> — fundamentos sólidos</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Solucionários</strong> — questões resolvidas</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Simulados inéditos</strong> — questões nunca vistas</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i><span><strong>Foco no edital</strong> CN e EPCAr</span></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="bg-slate-950/50 rounded-2xl p-6 border border-slate-700 mb-6">
+                        <div class="text-center mb-2">
+                            <div class="text-xs text-slate-500 mb-1">À vista por:</div>
+                            <div class="font-display text-6xl text-green-400 leading-none mb-1">R$1.397</div>
+                            <div class="text-sm text-slate-400">ou <strong class="text-white">12× R$ 83,08</strong> no cartão</div>
+                        </div>
+                    </div>
+
+                    <a href="https://deusdamatematica.com.br/pt/cursos/curso-completo-para-colegio-naval-e-epcar" target="_blank" rel="noopener" class="block w-full text-center bg-green-500 hover:bg-green-400 text-slate-900 font-black py-5 px-6 rounded-2xl text-lg transition-transform hover:scale-105 shadow-2xl shake-on-hover">
+                        ⚓ GARANTIR MINHA PREPARAÇÃO
+                    </a>
+                    <p class="text-center text-xs text-slate-400 mt-4">
+                        🛡️ Acesso imediato · Compra 100% segura
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== OUTROS CURSOS / PACOTES ========== -->
+<section id="cursos" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">Outros cursos disponíveis</p>
+            <h2 class="font-display text-5xl md:text-6xl text-slate-900 mb-4 uppercase">Escolha seu objetivo.</h2>
+            <p class="text-lg text-slate-600">Cada curso é focado num concurso ou área específica.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            <!-- Best seller -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/matematica-cnepcar-topicos-de-algebra-topicos-de-geometria-resolvidos" target="_blank" class="group relative bg-gradient-to-br from-yellow-100 to-yellow-50 border-2 border-yellow-300 rounded-3xl p-7 hover:shadow-2xl transition-all hover:-translate-y-1 flex flex-col">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-slate-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">★ Best Seller</div>
+                <div class="text-3xl mb-3">📐</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">CN/EPCAr + Álgebra + Geometria</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">Pacote com matemática, TAE e TGE resolvidos.</p>
+                <div class="font-display text-2xl text-slate-900 mb-3">12× R$ 75</div>
+                <div class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Ver pacote <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+
+            <!-- TGE+TAE -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/tgetae" target="_blank" class="group bg-slate-50 hover:bg-white border border-slate-200 hover:border-blue-300 rounded-3xl p-7 hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+                <div class="text-3xl mb-3">📏</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">TGE + TAE — Pacote Duplo</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">Geometria Elementar + Álgebra Elementar resolvidos.</p>
+                <div class="font-display text-2xl text-slate-900 mb-3">R$ 600</div>
+                <div class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Ver pacote <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+
+            <!-- EPCAr individual -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/curso-completo-para-epcar" target="_blank" class="group bg-slate-50 hover:bg-white border border-slate-200 hover:border-blue-300 rounded-3xl p-7 hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+                <div class="text-3xl mb-3">🎯</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">Curso Completo EPCAr</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">Preparação focada exclusivamente no EPCAr.</p>
+                <div class="font-display text-2xl text-slate-900 mb-1">R$ 997</div>
+                <div class="text-xs text-slate-500 mb-3">ou 12× R$ 70,58</div>
+                <div class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Ver curso <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+
+            <!-- Cálculo (50% OFF) -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/calculo-enefommgraduacao" target="_blank" class="group bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-300 rounded-3xl p-7 hover:shadow-2xl transition-all hover:-translate-y-1 flex flex-col relative">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider blink-bg">🔥 -50% OFF</div>
+                <div class="text-3xl mb-3">∫</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">Curso de Cálculo</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">EN, EFOMM e graduação. Cálculo diferencial e integral.</p>
+                <div class="flex items-baseline gap-2 mb-3">
+                    <div class="text-sm text-slate-400 line-through">R$ 659</div>
+                    <div class="font-display text-2xl text-red-600">R$ 329</div>
+                </div>
+                <div class="text-red-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Aproveitar 50% OFF <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+
+            <!-- Aritmética -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/aritmetica-1768706303911" target="_blank" class="group bg-slate-50 hover:bg-white border border-slate-200 hover:border-blue-300 rounded-3xl p-7 hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+                <div class="text-3xl mb-3">🔢</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">Aritmética</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">Fundamentos completos de aritmética para concursos.</p>
+                <div class="font-display text-2xl text-slate-900 mb-3">R$ 250</div>
+                <div class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Ver curso <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+
+            <!-- Professores -->
+            <a href="https://deusdamatematica.com.br/pt/cursos/curso-para-professores-de-matematica" target="_blank" class="group bg-slate-50 hover:bg-white border border-slate-200 hover:border-blue-300 rounded-3xl p-7 hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col">
+                <div class="text-3xl mb-3">👨‍🏫</div>
+                <h3 class="font-display text-xl text-slate-900 uppercase mb-2 leading-tight">Para Professores · CNU 2025</h3>
+                <p class="text-sm text-slate-600 mb-4 flex-1">Concurso Nacional Unificado para professores de matemática.</p>
+                <div class="font-display text-2xl text-slate-900 mb-3">12× R$ 67</div>
+                <div class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Ver curso <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+            </a>
+        </div>
+
+        <!-- Solucionário Geo Plana -->
+        <div class="mt-8 max-w-3xl mx-auto bg-blue-50 border-2 border-blue-200 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6">
+            <div class="text-5xl">📐</div>
+            <div class="flex-1 text-center sm:text-left">
+                <h4 class="font-display text-xl text-slate-900 uppercase mb-1">Solucionário Geo Plana + Teoria</h4>
+                <p class="text-sm text-slate-600">Resolução completa com teoria — 6× R$ 60</p>
+            </div>
+            <a href="https://deusdamatematica.com.br/pt/cursos/solucionario-tge-teoria-completa" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+                Ver →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== LEAD MAGNETS (RECIPROCIDADE) ========== -->
+<section class="py-24 bg-gradient-to-br from-yellow-50 to-orange-50">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <div class="text-center mb-12">
+            <p class="text-xs font-bold text-orange-600 uppercase tracking-[0.2em] mb-3">Comece de graça</p>
+            <h2 class="font-display text-4xl md:text-5xl text-slate-900 mb-4 uppercase">Material grátis pra você testar.</h2>
+            <p class="text-lg text-slate-600">Comece estudando agora. Sem cadastro, sem pegadinha.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Aula grátis YouTube -->
+            <a href="https://www.youtube.com/embed/LwwMCgKNTVg" target="_blank" class="group bg-white border-2 border-slate-200 hover:border-red-400 rounded-3xl overflow-hidden hover:shadow-2xl transition-all">
+                <div class="aspect-video bg-slate-900 relative flex items-center justify-center">
+                    <div class="w-20 h-20 bg-red-600 group-hover:bg-red-500 rounded-full flex items-center justify-center transition-colors shadow-2xl">
+                        <i data-lucide="play" class="w-10 h-10 text-white fill-current ml-1"></i>
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">YouTube</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-display text-xl text-slate-900 uppercase mb-1">🎥 Assista uma aula grátis</h3>
+                    <p class="text-sm text-slate-600">Veja como o método funciona — direto do canal Deus da Matemática.</p>
+                </div>
+            </a>
+
+            <!-- Listas grátis -->
+            <a href="https://drive.google.com/drive/folders/1KmvG91GlhEDrRXGLuqCst4OPRs4y66Re?usp=sharing" target="_blank" class="group bg-white border-2 border-slate-200 hover:border-yellow-400 rounded-3xl overflow-hidden hover:shadow-2xl transition-all">
+                <div class="aspect-video bg-gradient-to-br from-yellow-400 to-orange-500 relative flex items-center justify-center">
+                    <div class="text-7xl">📚</div>
+                    <div class="absolute bottom-3 right-3 bg-yellow-400 text-slate-900 text-[10px] font-bold px-2 py-1 rounded uppercase">100% Grátis</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-display text-xl text-slate-900 uppercase mb-1">🎁 Listas de Exercícios</h3>
+                    <p class="text-sm text-slate-600">AFA, EsPCEx e outros — Google Drive direto, sem cadastro.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Banco de Questões -->
+        <div class="mt-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white shadow-2xl flex flex-col md:flex-row items-center gap-6">
+            <div class="text-6xl">🗂️</div>
+            <div class="flex-1 text-center md:text-left">
+                <div class="inline-block bg-yellow-400 text-slate-900 text-[10px] font-black px-2 py-0.5 rounded uppercase mb-2">50% OFF · Versão Beta</div>
+                <h3 class="font-display text-2xl uppercase mb-1">Banco de Questões — +10.000 questões</h3>
+                <p class="text-blue-100 text-sm">Treine com a maior base de questões militares do Brasil.</p>
+            </div>
+            <a href="https://deusdamatematica.com.br/pt/comprar/plano/mensal-50pct-off-banco-10k-questoes" target="_blank" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-black px-6 py-3 rounded-xl transition-colors whitespace-nowrap">
+                Aproveitar 50% OFF
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SOBRE O AUTOR (AUTORIDADE REAL) ========== -->
+<section id="autor" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="max-w-5xl mx-auto bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+            <div class="absolute inset-0 grid-pattern opacity-20"></div>
+            <div class="relative grid md:grid-cols-3 gap-8 items-center">
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <img src="https://ugc.production.linktr.ee/81b85868-5498-4b68-b582-d2882c4357a3_IMG-20250626-193306-627-Original.jpeg" alt="Bruno Pedra" class="w-48 h-48 rounded-3xl object-cover shadow-2xl border-4 border-white/10">
+                        <div class="absolute -bottom-3 -right-3 bg-yellow-400 text-slate-900 text-xs font-black px-3 py-1.5 rounded-full shadow-lg">🏅 OURO</div>
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-xs font-bold text-yellow-400 uppercase tracking-[0.2em] mb-3">🏅 Medalhista Olímpico Internacional</p>
+                    <h2 class="font-display text-4xl md:text-5xl mb-4 uppercase">Bruno Pedra</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        Aprovado em <strong class="text-white">CN, EPCAr, EEAr, AFA, EFOMM, AMAN, UFRJ, EN e IME</strong> — onde serviu como oficial da reserva. Medalhista na <strong class="text-white">OMERJ, OBM, IMC (International Mathematics Competition)</strong> e <strong class="text-white">OIM (Olimpíada Ibero-Americana)</strong>.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        <strong class="text-white">1ª colocação no mestrado PROFMAT da PUC.</strong> Mais de 18 anos formando aprovados nos maiores cursos do Rio de Janeiro. Autor de 6 livros, incluindo <em>Tópicos de Álgebra Elementar</em> (Capeta Azul) e <em>Tópicos de Geometria Elementar</em>.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="px-3 py-1.5 bg-white/10 rounded-full font-bold border border-white/20">🎓 IME</span>
+                        <span class="px-3 py-1.5 bg-white/10 rounded-full font-bold border border-white/20">🏅 4 Medalhas Internacionais</span>
+                        <span class="px-3 py-1.5 bg-white/10 rounded-full font-bold border border-white/20">📚 6 Livros</span>
+                        <span class="px-3 py-1.5 bg-white/10 rounded-full font-bold border border-white/20">🥇 1ª PROFMAT/PUC</span>
+                        <span class="px-3 py-1.5 bg-white/10 rounded-full font-bold border border-white/20">🎯 +1000 aprovados</span>
+                    </div>
+                    <div class="flex gap-3 mt-6">
+                        <a href="https://www.youtube.com/c/DeusdaMatemática" target="_blank" class="text-slate-400 hover:text-white transition flex items-center gap-2 text-sm">
+                            <i data-lucide="youtube" class="w-5 h-5"></i> YouTube
+                        </a>
+                        <a href="https://instagram.com/brunpedra" target="_blank" class="text-slate-400 hover:text-white transition flex items-center gap-2 text-sm">
+                            <i data-lucide="instagram" class="w-5 h-5"></i> @brunpedra
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== APROVADOS / DEPOIMENTOS ========== -->
+<section id="aprovados" class="py-24 bg-slate-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">Resultados reais</p>
+            <h2 class="font-display text-5xl md:text-6xl text-slate-900 mb-4 uppercase leading-none">Eles estudaram. <span class="text-blue-600">Eles passaram.</span></h2>
+            <p class="text-lg text-slate-600">Mais de 1000 alunos aprovados em escolas militares com o método.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-shadow">
+                <div class="flex gap-1 mb-4 text-yellow-400">★★★★★</div>
+                <p class="text-slate-700 mb-6 leading-relaxed">"O Capeta Azul + solucionário foi <strong>decisivo</strong> pra minha aprovação. Estudei 8 meses sério. Passei no Colégio Naval. Sem isso, impossível."</p>
+                <div class="flex items-center gap-3 pt-6 border-t border-slate-100">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold">RS</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Rafael S.</div>
+                        <div class="text-xs text-slate-500">Aprovado · Colégio Naval</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-3xl p-8 border-2 border-yellow-400 shadow-xl scale-105">
+                <div class="flex gap-1 mb-4 text-yellow-400">★★★★★</div>
+                <p class="text-slate-700 mb-6 leading-relaxed">"As resoluções em vídeo me destravaram em <strong>fatoração e produtos notáveis</strong>. Hoje estou na EPCAr. Recomendo de olhos fechados."</p>
+                <div class="flex items-center gap-3 pt-6 border-t border-slate-100">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold">JC</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Júlia C.</div>
+                        <div class="text-xs text-slate-500">Aprovada · EPCAr</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-shadow">
+                <div class="flex gap-1 mb-4 text-yellow-400">★★★★★</div>
+                <p class="text-slate-700 mb-6 leading-relaxed">"Sou professor e indico pra meus alunos. <strong>Não há nada igual</strong> em Álgebra Elementar no mercado brasileiro. Tipografia perfeita, conteúdo exaustivo."</p>
+                <div class="flex items-center gap-3 pt-6 border-t border-slate-100">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-700 rounded-full flex items-center justify-center text-white font-bold">MA</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Marcos A.</div>
+                        <div class="text-xs text-slate-500">Professor (RJ)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== GARANTIA ========== -->
+<section class="py-24 bg-gradient-to-br from-green-50 to-emerald-50 relative overflow-hidden">
+    <div class="container mx-auto px-6 text-center max-w-3xl">
+        <div class="inline-block mb-8 relative">
+            <div class="w-40 h-40 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex flex-col items-center justify-center text-white shadow-2xl border-8 border-white">
+                <div class="font-display text-5xl leading-none">7</div>
+                <div class="text-xs font-bold uppercase tracking-wider mt-1">Dias</div>
+            </div>
+            <div class="absolute -top-2 -right-2 bg-yellow-400 text-slate-900 text-xs font-black px-3 py-1 rounded-full rotate-12 shadow-lg">100% RISCO ZERO</div>
+        </div>
+        <h2 class="font-display text-4xl md:text-5xl text-slate-900 mb-4 uppercase">Garantia incondicional</h2>
+        <p class="text-lg text-slate-600 mb-2">Você tem <strong class="text-slate-900">7 dias completos</strong> para experimentar qualquer curso da plataforma. Se não gostar, <strong class="text-slate-900">devolvemos 100%</strong> do investimento.</p>
+        <p class="text-sm text-slate-500 italic mt-4">Eu só vendo o que entrego. E entrego o melhor.</p>
+    </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 max-w-2xl mx-auto">
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">Tirando dúvidas</p>
+            <h2 class="font-display text-5xl md:text-6xl text-slate-900 mb-4 uppercase">Perguntas Frequentes</h2>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-3">
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>O Capeta Azul serve para quais concursos?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    Serve para alunos que querem subir o nível em álgebra para <strong>Colégio Naval, EPCAr, EFOMM, AFA, EsPCEx, Escola Naval, IME, ITA</strong> e vestibulares fortes.
+                </div>
+            </details>
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>Preciso ter o livro para fazer o solucionário?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    O ideal é estudar com o livro físico (ou digital) aberto e acompanhar as resoluções em vídeo na plataforma <strong>Deus da Matemática</strong>.
+                </div>
+            </details>
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>Qual a melhor opção para quem está começando?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    Se quer <strong>preparação completa</strong> para CN/EPCAr, vá direto no curso completo. Se já tem o livro e quer destravar as questões, o <strong>solucionário em vídeo</strong> é o caminho mais direto.
+                </div>
+            </details>
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>E se eu não gostar, como funciona a garantia?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    Você tem 7 dias para testar qualquer curso. Se não gostar, devolvemos 100% — sem perguntas.
+                </div>
+            </details>
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>Como funciona o pagamento?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    Os cursos podem ser pagos no cartão (até 12x), Pix ou boleto. O <strong>livro físico</strong> segue as opções de parcelamento do Mercado Livre.
+                </div>
+            </details>
+            <details class="group bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-300 transition">
+                <summary class="cursor-pointer p-6 flex justify-between items-center font-bold text-slate-900">
+                    <span>Quanto tempo dura o frete do livro?</span>
+                    <i data-lucide="plus" class="icon-plus w-5 h-5 text-blue-500"></i>
+                </summary>
+                <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                    O envio é via <strong>Mercado Livre</strong> — chega rápido, com prazo informado no momento da compra. Para os cursos digitais, o <strong>acesso é imediato</strong> após pagamento.
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA FINAL ========== -->
+<section class="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600 rounded-full mix-blend-screen filter blur-[200px] opacity-20"></div>
+    
+    <div class="container mx-auto px-6 relative z-10 text-center max-w-3xl">
+        <p class="text-xs font-bold text-yellow-400 uppercase tracking-[0.2em] mb-4">A SUA APROVAÇÃO NÃO ESPERA</p>
+        <h2 class="font-display text-5xl md:text-7xl text-white mb-6 uppercase leading-[0.9]">
+            O livro <span class="text-yellow-400 text-glow-yellow">atrai</span>.<br/>
+            O vídeo <span class="text-blue-400 text-glow">destrava</span>.<br/>
+            O curso <span class="text-green-400">aprofunda</span>.
+        </h2>
+        <p class="text-lg text-slate-300 mb-10">Escolha agora o melhor caminho para evoluir em matemática para concursos militares.</p>
+        
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#solucionario" class="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-black py-5 px-8 rounded-2xl text-lg transition-transform hover:scale-105 shadow-2xl">
+                🎥 Ver Solucionário
+            </a>
+            <a href="https://deusdamatematica.com.br/pt/cursos" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-black py-5 px-8 rounded-2xl text-lg transition-transform hover:scale-105">
+                Ver todos os cursos →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-slate-950 text-slate-500 py-12 border-t border-slate-900">
+    <div class="container mx-auto px-6 text-center">
+        <h4 class="text-slate-300 text-2xl font-display mb-2 uppercase">Deus da <span class="text-blue-500">Matemática</span></h4>
+        <p class="text-sm mb-6">Bruno Pedra © 2026 · Transformando o ensino no Brasil.</p>
+        <div class="flex justify-center gap-4 mb-6">
+            <a href="https://www.youtube.com/c/DeusdaMatemática" target="_blank" class="hover:text-red-400 transition" aria-label="YouTube"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+            <a href="https://instagram.com/brunpedra" target="_blank" class="hover:text-pink-400 transition" aria-label="Instagram"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            <a href="https://deusdamatematica.com.br/pt/contato" target="_blank" class="hover:text-blue-400 transition" aria-label="Contato"><i data-lucide="mail" class="w-6 h-6"></i></a>
+        </div>
+        <div class="flex justify-center gap-4 text-xs">
+            <a href="https://deusdamatematica.com.br/pt/termos-de-uso" target="_blank" class="hover:text-blue-400 transition">Termos de Uso</a>
+            <span>·</span>
+            <a href="https://deusdamatematica.com.br/pt/politica-de-privacidade" target="_blank" class="hover:text-blue-400 transition">Privacidade</a>
+            <span>·</span>
+            <a href="https://deusdamatematica.com.br/pt/contato" target="_blank" class="hover:text-blue-400 transition">Contato</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== TOAST DE NOTIFICAÇÕES (FOMO) ========== -->
+<div id="toastContainer" class="fixed bottom-24 left-4 z-50 max-w-xs hidden md:block"></div>
+
+<!-- ========== BOTTOM CTA BAR (MOBILE) ========== -->
+<div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-950 border-t border-slate-800 p-3 flex gap-2 shadow-2xl">
+    <a href="#solucionario" class="flex-1 bg-blue-600 text-white font-black text-sm py-3 rounded-xl text-center flex items-center justify-center gap-2">
+        🎥 VER SOLUCIONÁRIO
+    </a>
+</div>
+
+<script>
+    lucide.createIcons();
+
+    // ========== TOAST NOTIFICATIONS (FOMO) ==========
+    const sales = [
+        { name: 'João S.', city: 'São Paulo, SP', item: 'Solucionário Capeta Azul', time: 'agora' },
+        { name: 'Maria L.', city: 'Rio de Janeiro, RJ', item: 'Livro Capeta Azul', time: '2 min atrás' },
+        { name: 'Pedro M.', city: 'Belo Horizonte, MG', item: 'Curso CN+EPCAr', time: '4 min atrás' },
+        { name: 'Ana C.', city: 'Curitiba, PR', item: 'Solucionário Capeta Azul', time: '7 min atrás' },
+        { name: 'Lucas R.', city: 'Recife, PE', item: 'Curso de Cálculo (50% OFF)', time: '12 min atrás' },
+        { name: 'Beatriz F.', city: 'Brasília, DF', item: 'Livro Capeta Azul', time: '15 min atrás' },
+        { name: 'Carlos T.', city: 'Salvador, BA', item: 'Pacote CN/EPCAr + TAE+TGE', time: '18 min atrás' },
+        { name: 'Renata V.', city: 'Fortaleza, CE', item: 'Solucionário Capeta Azul', time: '22 min atrás' },
+        { name: 'Felipe G.', city: 'Porto Alegre, RS', item: 'Curso EPCAr', time: '25 min atrás' },
+    ];
+    let saleIdx = 0;
+
+    function showToast() {
+        const sale = sales[saleIdx % sales.length];
+        saleIdx++;
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'toast-in bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 flex items-center gap-3 mb-3';
+        toast.innerHTML = `
+            <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                ${sale.name.charAt(0)}
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-xs text-slate-700 leading-tight"><strong>${sale.name}</strong> de ${sale.city}</p>
+                <p class="text-xs text-slate-500 leading-tight">acabou de comprar <strong class="text-blue-600">${sale.item}</strong></p>
+                <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ${sale.time}
+                </p>
+            </div>
+            <button class="text-slate-300 hover:text-slate-600 text-xl leading-none">&times;</button>
+        `;
+        toast.querySelector('button').onclick = () => {
+            toast.classList.remove('toast-in');
+            toast.classList.add('toast-out');
+            setTimeout(() => toast.remove(), 400);
+        };
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.classList.remove('toast-in');
+                toast.classList.add('toast-out');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }, 6000);
+    }
+
+    setTimeout(() => {
+        showToast();
+        setInterval(showToast, 12000);
+    }, 4000);
+</script>
+
 </body>
 </html>
-"""
-
-
-def write_pages(style_block: str):
-    for page in PAGES:
-        folder = Path(page["slug"])
-        folder.mkdir(parents=True, exist_ok=True)
-        output = folder / "index.html"
-        output.write_text(build_page_html(style_block, page), encoding="utf-8")
-        print(f"OK: {output}")
-
-
-def write_sitemap():
-    today = date.today().isoformat()
-    urls = [f"{DOMAIN}/"] + [f"{DOMAIN}/{p['slug']}/" for p in PAGES]
-
-    body = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-    ]
-
-    for url in urls:
-        body.extend([
-            "  <url>",
-            f"    <loc>{url}</loc>",
-            f"    <lastmod>{today}</lastmod>",
-            "    <changefreq>weekly</changefreq>",
-            "    <priority>0.8</priority>",
-            "  </url>",
-        ])
-
-    body.append("</urlset>")
-    Path("sitemap.xml").write_text("\n".join(body), encoding="utf-8")
-    print("OK: sitemap.xml")
-
-
-def write_robots():
-    content = f"""User-agent: *
-Allow: /
-
-Sitemap: {DOMAIN}/sitemap.xml
-"""
-    Path("robots.txt").write_text(content, encoding="utf-8")
-    print("OK: robots.txt")
-
-
-def main():
-    root_html = read_root_index()
-    style_block = extract_style_block(root_html)
-    write_pages(style_block)
-    write_sitemap()
-    write_robots()
-    print("\\nPronto. Agora faça commit e push para o GitHub.")
-
-
-if __name__ == "__main__":
-    main()

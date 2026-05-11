@@ -35,7 +35,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="../capa-livro.jpg.jpg" fetchpriority="high" />
+  <!-- Atualizei o preload da imagem para refletir a URL absoluta usada abaixo -->
+  <link rel="preload" as="image" href="https://www.capetaazul.com.br/capa-livro.jpg.jpg" fetchpriority="high" />
 
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
@@ -615,20 +616,27 @@
       box-shadow: var(--shadow-lg);
     }
 
+    /* Modificado: a classe author-photo agora acomoda a sua foto corretamente */
     .author-photo {
       aspect-ratio: 1;
       border-radius: 20px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(240,199,102,.35), transparent 55%),
-        linear-gradient(160deg, rgba(59,130,246,.25), rgba(0,0,0,.4));
       border: 1px solid var(--line-strong);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 900;
-      color: #fff;
+      /* Oculta qualquer parte da imagem que passe dos cantos arredondados */
+      overflow: hidden; 
+      background:
+        radial-gradient(circle at 30% 20%, rgba(240,199,102,.35), transparent 55%),
+        linear-gradient(160deg, rgba(59,130,246,.25), rgba(0,0,0,.4));
+    }
+
+    /* Nova classe para formatar a imagem dentro da div do autor */
+    .author-photo img {
+      width: 100%;
+      height: 100%;
+      /* O object-fit: cover garante que a foto preencha o espaço da div como se fosse um background, sem amassar a foto */
+      object-fit: cover; 
     }
 
     .author h2 {
@@ -950,9 +958,10 @@
 
       <aside class="panel" aria-label="Capa e destaques do livro">
         <div class="cover-stage">
+          <!-- Modificado: Adicionada a URL absoluta (completa) que você mesmo colocou no metadado og:image -->
           <img
             class="cover-image"
-            src="../capa-livro.jpg.jpg"
+            src="https://www.capetaazul.com.br/capa-livro.jpg.jpg"
             alt="Capa do livro Capeta Azul — Tópicos de Álgebra Elementar, de Bruno Pedra"
             width="600"
             height="800"
@@ -1163,7 +1172,10 @@
   <section class="section" id="autor">
     <div class="container">
       <div class="author fade-up">
-        <div class="author-photo">BP</div>
+        <!-- Modificado: Foi incluída uma tag img no lugar do texto BP e configurada para se adaptar ao visual redondo/quadrado -->
+        <div class="author-photo">
+          <img src="caminho-para-sua-foto.jpg" alt="Foto do Prof. Bruno Pedra" />
+        </div>
         <div>
           <span class="role">Sobre o autor</span>
           <h2>Prof. Bruno Pedra</h2>

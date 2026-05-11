@@ -35,7 +35,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Atualizei o preload da imagem para refletir a URL absoluta usada abaixo -->
   <link rel="preload" as="image" href="https://www.capetaazul.com.br/capa-livro.jpg.jpg" fetchpriority="high" />
 
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -332,14 +331,12 @@
       pointer-events: none;
     }
 
-    /* OTIMIZAÇÃO DA CAPA */
+    /* OTIMIZAÇÃO DA CAPA - Nova versão para preencher a caixa e deslocar à direita */
     .cover-stage {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block; /* Modificado de flex para block para a imagem ocupar totalmente o fundo */
       min-height: 560px;
-      padding: 28px;
+      padding: 0; /* Removido o padding para a imagem colar nas bordas */
       border-radius: 24px;
       border: 1px solid var(--line);
       background:
@@ -359,20 +356,19 @@
     }
 
     .cover-image {
-      position: relative;
+      position: absolute; /* Torna a imagem absoluta para cobrir a caixa inteira */
+      top: 0;
+      left: 0;
       z-index: 1;
-      display: block;
-      width: auto;
-      max-width: 100%;
-      max-height: 580px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 18px;
-      box-shadow:
-        0 26px 55px rgba(0,0,0,.46),
-        0 12px 28px rgba(0,0,0,.28),
-        0 0 0 1px rgba(255,255,255,.08);
-      background: #0f172a;
+      width: 100%;
+      height: 100%;
+      /* Aqui forçamos a imagem a caber e preencher o container */
+      object-fit: cover;
+      /* Alinha o foco da imagem para o meio vertical e para a direita horizontalmente */
+      object-position: right center; 
+      /* Amplia um pouco (scale) e empurra ainda mais pra direita (translateX). Altere esses valores para ajuste fino. */
+      transform: scale(1.2) translateX(15%);
+      border-radius: 18px; /* Mantém as bordas arredondadas internas */
     }
 
     .stats {
@@ -616,7 +612,6 @@
       box-shadow: var(--shadow-lg);
     }
 
-    /* Modificado: a classe author-photo agora acomoda a sua foto corretamente */
     .author-photo {
       aspect-ratio: 1;
       border-radius: 20px;
@@ -624,18 +619,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Oculta qualquer parte da imagem que passe dos cantos arredondados */
       overflow: hidden; 
       background:
         radial-gradient(circle at 30% 20%, rgba(240,199,102,.35), transparent 55%),
         linear-gradient(160deg, rgba(59,130,246,.25), rgba(0,0,0,.4));
     }
 
-    /* Nova classe para formatar a imagem dentro da div do autor */
     .author-photo img {
       width: 100%;
       height: 100%;
-      /* O object-fit: cover garante que a foto preencha o espaço da div como se fosse um background, sem amassar a foto */
       object-fit: cover; 
     }
 
@@ -812,12 +804,13 @@
       }
 
       .cover-stage {
-        min-height: auto;
-        padding: 18px;
+        min-height: 400px; /* Ajuste para celular */
+        padding: 0;
       }
 
       .cover-image {
-        max-height: 430px;
+        /* No mobile a imagem continua preenchendo a caixa perfeitamente */
+        max-height: 100%;
       }
 
       .stats {
@@ -872,11 +865,7 @@
 
     @media (max-width: 480px) {
       .cover-stage {
-        padding: 14px;
-      }
-
-      .cover-image {
-        max-height: 330px;
+        padding: 0;
       }
 
       .stats {
@@ -958,7 +947,6 @@
 
       <aside class="panel" aria-label="Capa e destaques do livro">
         <div class="cover-stage">
-          <!-- Modificado: Adicionada a URL absoluta (completa) que você mesmo colocou no metadado og:image -->
           <img
             class="cover-image"
             src="https://www.capetaazul.com.br/capa-livro.jpg.jpg"
@@ -1172,9 +1160,10 @@
   <section class="section" id="autor">
     <div class="container">
       <div class="author fade-up">
-        <!-- Modificado: Foi incluída uma tag img no lugar do texto BP e configurada para se adaptar ao visual redondo/quadrado -->
         <div class="author-photo">
-          <img src="caminho-para-sua-foto.jpg" alt="Foto do Prof. Bruno Pedra" />
+          <!-- AQUI ESTÁ O LOCAL PARA A SUA FOTO -->
+          <!-- Substitua "perfil-brunopedra.jpg" pelo nome exato do arquivo que você baixou -->
+          <img src="perfil-brunopedra.jpg" alt="Foto do Prof. Bruno Pedra (@brunpedra)" />
         </div>
         <div>
           <span class="role">Sobre o autor</span>

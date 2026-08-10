@@ -135,8 +135,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
 
   // =========================================================
   //  LINKS — para trocar qualquer link, edite AQUI (só aqui).
-  //  ⚠️ O WhatsApp está com número fake. Troque pelo seu real:
-  //     formato 55 + DDD + número. Ex.: 5521999998888
+  //  Os links comerciais ficam centralizados aqui.
   // =========================================================
   var LINKS = {
     livroMercadoLivre: "https://www.mercadolivre.com.br/livro-topicos-de-algebra-elementar-capeta-azul-bruno-pedra/p/MLB67997287",
@@ -150,7 +149,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
     todosCursos: "https://deusdamatematica.com.br/pt/cursos",
     aulaGratis: "https://www.youtube.com/watch?v=LwwMCgKNTVg",
     listasGratis: "https://drive.google.com/drive/folders/1KmvG91GlhEDrRXGLuqCst4OPRs4y66Re?usp=sharing",
-    whatsapp: "https://wa.me/5500000000000?text=Quero%20ajuda%20para%20escolher%20meu%20material"
+    whatsapp: "https://deusdamatematica.com.br/pt/contato"
   };
 
   var PRODUCTS = {
@@ -162,7 +161,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
     pacoteBestSeller:{id:"pacoteBestSeller",tier:"aprofunda",tag:"★ Best Seller",titulo:"Pacote CN/EPCAr — Álgebra + Geometria",descricao:"Matemática completa com TAE e TGE resolvidos. O pacote mais vendido da plataforma.",idealPara:"Quem quer o combo campeão de álgebra + geometria resolvidos.",preco:"12× de R$ 75 · garantia de 7 dias",ctaLabel:"Ver pacote",ctaHref:LINKS.pacoteBestSeller},
     pacoteTGE_TAE:{id:"pacoteTGE_TAE",tier:"aprofunda",tag:"Álgebra + Geometria resolvidas",titulo:"Pacote Duplo — TGE + TAE",descricao:"Geometria + Álgebra Elementar resolvidas em vídeo. Base militar universal (AFA, EsPCEx, EN, EFOMM).",idealPara:"Quem faz concurso militar e quer dominar álgebra e geometria.",preco:"R$ 600 · acesso imediato",ctaLabel:"Ver pacote duplo",ctaHref:LINKS.pacoteTGE_TAE,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
     solucionarioTGE:{id:"solucionarioTGE",tier:"destrava",tag:"Geometria destravada",titulo:"Solucionário Geo. Plana + Teoria",descricao:"Resolução completa de geometria plana com teoria embutida. Reforço rápido.",idealPara:"Quem trava na geometria e quer resolver em vídeo.",preco:"6× de R$ 60 · acesso imediato",ctaLabel:"Ver solucionário de geometria",ctaHref:LINKS.solucionarioTGE},
-    whatsapp:{id:"whatsapp",tier:"apoio",tag:"Fala comigo",titulo:"Ainda com dúvida? Fale direto comigo",descricao:"Me conta seu concurso e seu momento que eu te digo por onde começar.",idealPara:"Quem quer uma recomendação humana antes de decidir.",preco:"Resposta pelo WhatsApp",ctaLabel:"Falar no WhatsApp",ctaHref:LINKS.whatsapp}
+    whatsapp:{id:"whatsapp",tier:"apoio",tag:"Fale com a equipe",titulo:"Ainda com dúvida? Entre em contato",descricao:"Conte seu concurso e seu momento para receber uma orientação antes de decidir.",idealPara:"Quem quer confirmar o melhor caminho antes da compra.",preco:"Atendimento pela página de contato",ctaLabel:"Abrir contato",ctaHref:LINKS.whatsapp}
   };
 
   var QUESTIONS = [
@@ -196,7 +195,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
 
     if(concurso==="nao-sei"){
       return {headline:"Vamos descobrir seu caminho juntos",
-        sub:"Sem concurso definido, começa pelos campeões de venda e testa de graça. Se bater dúvida, me chama no WhatsApp.",
+        sub:"Sem concurso definido, comece pelos campeões de venda e teste de graça. Se surgir dúvida, fale com a equipe.",
         mood:"inicio",whatsapp:true,gratis:true,itens:dedup([
           {id:"pacoteBestSeller",destaque:true,selo:"MAIS VENDIDO",motivo:"O pacote que mais aprova: álgebra + geometria resolvidas."},
           {id:"solucionario",motivo:"Se você já tem (ou vai pegar) o livro, é o jeito mais rápido de evoluir."},

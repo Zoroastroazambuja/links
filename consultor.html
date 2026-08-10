@@ -134,14 +134,14 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
 
   // =========================================================
   //  LINKS — para trocar qualquer link, edite AQUI (só aqui).
-  //  ⚠️ O WhatsApp está com número fake. Troque pelo seu real:
-  //     formato 55 + DDD + número. Ex.: 5521999998888
+  //  Os links comerciais ficam centralizados aqui.
   // =========================================================
   var LINKS = {
     livroMercadoLivre: "https://www.mercadolivre.com.br/livro-topicos-de-algebra-elementar-capeta-azul-bruno-pedra/p/MLB67997287",
     solucionario: "https://deusdamatematica.com.br/pt/cursos/solucionario-capeta-azul",
     cursoCN_EPCAr: "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-colegio-naval-e-epcar",
     cursoEPCAr: "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-epcar",
+    cursoCalculo: "https://deusdamatematica.com.br/pt/cursos/calculo-enefommgraduacao",
     pacoteBestSeller: "https://deusdamatematica.com.br/pt/cursos/matematica-cnepcar-topicos-de-algebra-topicos-de-geometria-resolvidos",
     pacoteTGE_TAE: "https://deusdamatematica.com.br/pt/cursos/tgetae",
     solucionarioTGE: "https://deusdamatematica.com.br/pt/cursos/solucionario-tge-teoria-completa",
@@ -149,7 +149,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
     todosCursos: "https://deusdamatematica.com.br/pt/cursos",
     aulaGratis: "https://www.youtube.com/watch?v=LwwMCgKNTVg",
     listasGratis: "https://drive.google.com/drive/folders/1KmvG91GlhEDrRXGLuqCst4OPRs4y66Re?usp=sharing",
-    whatsapp: "https://wa.me/5500000000000?text=Quero%20ajuda%20para%20escolher%20meu%20material"
+    whatsapp: "https://deusdamatematica.com.br/pt/contato"
   };
 
   var PRODUCTS = {
@@ -158,10 +158,11 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
     bancoQuestoes:{id:"bancoQuestoes",tier:"treino",tag:"Treino diário · Assinatura",titulo:"Banco de Questões — +10.000 questões",descricao:"A maior base de questões militares do Brasil. Treino cirúrgico até a questão virar reflexo.",idealPara:"Quem precisa de volume e repetição para blindar a aprovação.",preco:"50% OFF · plano mensal (versão beta)",ctaLabel:"Aproveitar 50% OFF",ctaHref:LINKS.bancoQuestoes},
     cursoCN_EPCAr:{id:"cursoCN_EPCAr",tier:"aprofunda",tag:"Passo 3 · Aprofunda",titulo:"Curso Completo — CN + EPCAr",descricao:"Álgebra, geometria, aritmética, solucionários e simulados inéditos. Do básico ao avançado, focado no edital.",idealPara:"Quem quer aprovação no CN ou EPCAr, com trilha guiada.",preco:"12× de R$ 83,08 · ou R$ 1.397 à vista · garantia de 7 dias",ctaLabel:"Garantir minha preparação",ctaHref:LINKS.cursoCN_EPCAr,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
     cursoEPCAr:{id:"cursoEPCAr",tier:"aprofunda",tag:"Foco total no EPCAr",titulo:"Curso Completo — EPCAr",descricao:"Preparação focada exclusivamente no EPCAr. Toda a matemática do edital, resolvida e simulada.",idealPara:"Quem vai fazer só EPCAr e quer o caminho mais direto.",preco:"12× de R$ 70,58 · ou R$ 997 à vista",ctaLabel:"Ver curso EPCAr",ctaHref:LINKS.cursoEPCAr},
+    cursoCalculo:{id:"cursoCalculo",tier:"aprofunda",tag:"Foco Escola Naval",titulo:"Curso de Cálculo — EN e EFOMM",descricao:"Limites, derivadas, regra de L’Hôpital, integrais e aplicações para provas que exigem conteúdo avançado.",idealPara:"Quem vai prestar Escola Naval e precisa organizar Cálculo Diferencial e Integral.",preco:"Consulte as condições atuais na plataforma",ctaLabel:"Ver curso de Cálculo",ctaHref:LINKS.cursoCalculo},
     pacoteBestSeller:{id:"pacoteBestSeller",tier:"aprofunda",tag:"★ Best Seller",titulo:"Pacote CN/EPCAr — Álgebra + Geometria",descricao:"Matemática completa com TAE e TGE resolvidos. O pacote mais vendido da plataforma.",idealPara:"Quem quer o combo campeão de álgebra + geometria resolvidos.",preco:"12× de R$ 75 · garantia de 7 dias",ctaLabel:"Ver pacote",ctaHref:LINKS.pacoteBestSeller},
     pacoteTGE_TAE:{id:"pacoteTGE_TAE",tier:"aprofunda",tag:"Álgebra + Geometria resolvidas",titulo:"Pacote Duplo — TGE + TAE",descricao:"Geometria + Álgebra Elementar resolvidas em vídeo. Base militar universal (AFA, EsPCEx, EN, EFOMM).",idealPara:"Quem faz concurso militar e quer dominar álgebra e geometria.",preco:"R$ 600 · acesso imediato",ctaLabel:"Ver pacote duplo",ctaHref:LINKS.pacoteTGE_TAE,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
     solucionarioTGE:{id:"solucionarioTGE",tier:"destrava",tag:"Geometria destravada",titulo:"Solucionário Geo. Plana + Teoria",descricao:"Resolução completa de geometria plana com teoria embutida. Reforço rápido.",idealPara:"Quem trava na geometria e quer resolver em vídeo.",preco:"6× de R$ 60 · acesso imediato",ctaLabel:"Ver solucionário de geometria",ctaHref:LINKS.solucionarioTGE},
-    whatsapp:{id:"whatsapp",tier:"apoio",tag:"Fala comigo",titulo:"Ainda com dúvida? Fale direto comigo",descricao:"Me conta seu concurso e seu momento que eu te digo por onde começar.",idealPara:"Quem quer uma recomendação humana antes de decidir.",preco:"Resposta pelo WhatsApp",ctaLabel:"Falar no WhatsApp",ctaHref:LINKS.whatsapp}
+    whatsapp:{id:"whatsapp",tier:"apoio",tag:"Fale com a equipe",titulo:"Ainda com dúvida? Entre em contato",descricao:"Conte seu concurso e seu momento para receber uma orientação antes de decidir.",idealPara:"Quem quer confirmar o melhor caminho antes da compra.",preco:"Atendimento pela página de contato",ctaLabel:"Abrir contato",ctaHref:LINKS.whatsapp}
   };
 
   var QUESTIONS = [
@@ -176,6 +177,20 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
   ];
   var TOTAL = QUESTIONS.length;
 
+  // Preserva a campanha que trouxe o visitante sem atribuir tráfego direto a um canal fictício.
+  var inboundParams = new URLSearchParams(window.location.search);
+  var attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term"];
+  var hasInboundAttribution = attributionKeys.some(function(key){return inboundParams.has(key);});
+  function attributedUrl(href, content){
+    var url = new URL(href, window.location.href);
+    attributionKeys.forEach(function(key){
+      var value = inboundParams.get(key);
+      if(value && !url.searchParams.has(key)) url.searchParams.set(key,value);
+    });
+    if(hasInboundAttribution && content && !url.searchParams.has("utm_content")) url.searchParams.set("utm_content",content);
+    return url.toString();
+  }
+
   // ---- Rastreamento (console por enquanto; GA4/Pixel prontos no <head>) ----
   function track(evento, dados){
     dados = dados || {};
@@ -187,7 +202,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
   // ---- Regras de recomendação ----
   var CONCURSOS_MILITARES = ["efomm","afa","escola-naval","espcex"];
   function dedup(itens){var v={};return itens.filter(function(it){if(v[it.id])return false;v[it.id]=1;return true;});}
-  function cursoAncora(c){if(c==="colegio-naval"||c==="epcar")return{id:"cursoCN_EPCAr"};if(CONCURSOS_MILITARES.indexOf(c)>-1)return{id:"pacoteTGE_TAE"};return{id:"pacoteBestSeller"};}
+  function cursoAncora(c){if(c==="colegio-naval"||c==="epcar")return{id:"cursoCN_EPCAr"};if(c==="escola-naval")return{id:"cursoCalculo"};if(CONCURSOS_MILITARES.indexOf(c)>-1)return{id:"pacoteTGE_TAE"};return{id:"pacoteBestSeller"};}
 
   function getRecommendation(a){
     var concurso=a.concurso, formato=a.formato, tempo=a.tempo;
@@ -195,7 +210,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
 
     if(concurso==="nao-sei"){
       return {headline:"Vamos descobrir seu caminho juntos",
-        sub:"Sem concurso definido, começa pelos campeões de venda e testa de graça. Se bater dúvida, me chama no WhatsApp.",
+        sub:"Sem concurso definido, comece pelos campeões de venda e teste de graça. Se surgir dúvida, fale com a equipe.",
         mood:"inicio",whatsapp:true,gratis:true,itens:dedup([
           {id:"pacoteBestSeller",destaque:true,selo:"MAIS VENDIDO",motivo:"O pacote que mais aprova: álgebra + geometria resolvidas."},
           {id:"solucionario",motivo:"Se você já tem (ou vai pegar) o livro, é o jeito mais rápido de evoluir."},
@@ -297,8 +312,8 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
     if(item&&item.motivo) h+='<div class="cdm-motivo"><span>Por que pra você: </span>'+item.motivo+'</div>';
     h+='<p class="cdm-preco">'+product.preco+'</p>';
     h+='<div class="cdm-ctas">';
-    h+='<a class="'+a.btn+'" href="'+product.ctaHref+'" target="_blank" rel="noopener noreferrer" data-cta="'+product.id+'">'+product.ctaLabel+'</a>';
-    if(product.saibaMaisHref) h+='<a class="cdm-btn cdm-btn-ghost" href="'+product.saibaMaisHref+'" target="_blank" rel="noopener noreferrer" data-cta="'+product.id+'_saibamais">'+(product.saibaMaisLabel||"Saiba mais")+'</a>';
+    h+='<a class="'+a.btn+'" href="'+attributedUrl(product.ctaHref,"consultor_"+product.id)+'" target="_blank" rel="noopener noreferrer" data-cta="'+product.id+'">'+product.ctaLabel+'</a>';
+    if(product.saibaMaisHref) h+='<a class="cdm-btn cdm-btn-ghost" href="'+attributedUrl(product.saibaMaisHref,"consultor_"+product.id+"_saibamais")+'" target="_blank" rel="noopener noreferrer" data-cta="'+product.id+'_saibamais">'+(product.saibaMaisLabel||"Saiba mais")+'</a>';
     h+='</div></article>';
     return h;
   }
@@ -367,8 +382,8 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
       // gratis
       if(rec.gratis){
         html+='<div class="cdm-free"><p class="cdm-eyebrow" style="margin-bottom:10px">Comece de gra&ccedil;a hoje</p>'
-          +'<a class="cdm-btn cdm-btn-ghost" href="'+LINKS.aulaGratis+'" target="_blank" rel="noopener noreferrer" data-cta="gratis_aula">&#127909; Assistir aula gr&aacute;tis no YouTube</a>'
-          +'<a class="cdm-btn cdm-btn-ghost" style="margin-top:8px" href="'+LINKS.listasGratis+'" target="_blank" rel="noopener noreferrer" data-cta="gratis_listas">&#128218; Baixar listas de exerc&iacute;cios gr&aacute;tis</a></div>';
+          +'<a class="cdm-btn cdm-btn-ghost" href="'+attributedUrl(LINKS.aulaGratis,"consultor_gratis_aula")+'" target="_blank" rel="noopener noreferrer" data-cta="gratis_aula">&#127909; Assistir aula gr&aacute;tis no YouTube</a>'
+          +'<a class="cdm-btn cdm-btn-ghost" style="margin-top:8px" href="'+attributedUrl(LINKS.listasGratis,"consultor_gratis_listas")+'" target="_blank" rel="noopener noreferrer" data-cta="gratis_listas">&#128218; Baixar listas de exerc&iacute;cios gr&aacute;tis</a></div>';
       }
       // whatsapp
       if(rec.whatsapp){

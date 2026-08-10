@@ -139,10 +139,9 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
   var LINKS = {
     livroMercadoLivre: "https://www.mercadolivre.com.br/livro-topicos-de-algebra-elementar-capeta-azul-bruno-pedra/p/MLB67997287",
     solucionario: "https://deusdamatematica.com.br/pt/cursos/solucionario-capeta-azul",
-    cursoCN_EPCAr: "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-colegio-naval-e-epcar",
+    cursoCN_EPCAr: "https://deusdamatematica.com.br/pt/cursos/matematica-cnepcar-topicos-de-algebra-topicos-de-geometria-resolvidos",
     cursoEPCAr: "https://deusdamatematica.com.br/pt/cursos/curso-completo-para-epcar",
     cursoCalculo: "https://deusdamatematica.com.br/pt/cursos/calculo-enefommgraduacao",
-    pacoteBestSeller: "https://deusdamatematica.com.br/pt/cursos/matematica-cnepcar-topicos-de-algebra-topicos-de-geometria-resolvidos",
     pacoteTGE_TAE: "https://deusdamatematica.com.br/pt/cursos/tgetae",
     solucionarioTGE: "https://deusdamatematica.com.br/pt/cursos/solucionario-tge-teoria-completa",
     bancoQuestoes: "https://deusdamatematica.com.br/pt/comprar/plano/mensal-50pct-off-banco-10k-questoes",
@@ -153,15 +152,14 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
   };
 
   var PRODUCTS = {
-    livro:{id:"livro",tier:"base",tag:"Passo 1 · A base",titulo:"Capeta Azul — Livro Físico",descricao:"Tópicos de Álgebra Elementar. O livro mais temido da álgebra militar, envio FULL pelo Mercado Livre.",idealPara:"Quem quer base bruta em álgebra, na mão e no papel.",preco:"★ 5,0 no Mercado Livre · envio FULL",ctaLabel:"Comprar no Mercado Livre",ctaHref:LINKS.livroMercadoLivre},
-    solucionario:{id:"solucionario",tier:"destrava",tag:"Passo 2 · Destrava tudo",titulo:"Solucionário Capeta Azul (em vídeo)",descricao:"Cada questão resolvida em vídeo, passo a passo. O autor vira o seu professor particular.",idealPara:"Quem já tem o livro e travou nas questões difíceis.",preco:"6× de R$ 60 · ou 5% OFF à vista · acesso imediato",ctaLabel:"Quero dominar o livro",ctaHref:LINKS.solucionario,saibaMaisLabel:"Ver aula grátis",saibaMaisHref:LINKS.aulaGratis},
-    bancoQuestoes:{id:"bancoQuestoes",tier:"treino",tag:"Treino diário · Assinatura",titulo:"Banco de Questões — +10.000 questões",descricao:"A maior base de questões militares do Brasil. Treino cirúrgico até a questão virar reflexo.",idealPara:"Quem precisa de volume e repetição para blindar a aprovação.",preco:"50% OFF · plano mensal (versão beta)",ctaLabel:"Aproveitar 50% OFF",ctaHref:LINKS.bancoQuestoes},
-    cursoCN_EPCAr:{id:"cursoCN_EPCAr",tier:"aprofunda",tag:"Passo 3 · Aprofunda",titulo:"Curso Completo — CN + EPCAr",descricao:"Álgebra, geometria, aritmética, solucionários e simulados inéditos. Do básico ao avançado, focado no edital.",idealPara:"Quem quer aprovação no CN ou EPCAr, com trilha guiada.",preco:"12× de R$ 83,08 · ou R$ 1.397 à vista · garantia de 7 dias",ctaLabel:"Garantir minha preparação",ctaHref:LINKS.cursoCN_EPCAr,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
-    cursoEPCAr:{id:"cursoEPCAr",tier:"aprofunda",tag:"Foco total no EPCAr",titulo:"Curso Completo — EPCAr",descricao:"Preparação focada exclusivamente no EPCAr. Toda a matemática do edital, resolvida e simulada.",idealPara:"Quem vai fazer só EPCAr e quer o caminho mais direto.",preco:"12× de R$ 70,58 · ou R$ 997 à vista",ctaLabel:"Ver curso EPCAr",ctaHref:LINKS.cursoEPCAr},
+    livro:{id:"livro",tier:"base",tag:"Passo 1 · A base",titulo:"Capeta Azul — Livro Físico",descricao:"Tópicos de Álgebra Elementar em papel para construir uma base forte em álgebra militar.",idealPara:"Quem quer desenvolver raciocínio no papel.",preco:"Mercado Livre · frete e prazo informados na compra",ctaLabel:"Comprar no Mercado Livre",ctaHref:LINKS.livroMercadoLivre},
+    solucionario:{id:"solucionario",tier:"destrava",tag:"Passo 2 · Destrava tudo",titulo:"Solucionário Capeta Azul (em vídeo)",descricao:"As 689 questões resolvidas em vídeo, passo a passo, pelo autor do livro.",idealPara:"Quem já tem o livro e travou nas questões difíceis.",preco:"6× de R$ 33,33 · 5% à vista · garantia de 7 dias",ctaLabel:"Quero dominar o livro",ctaHref:LINKS.solucionario,saibaMaisLabel:"Ver aula grátis",saibaMaisHref:LINKS.aulaGratis},
+    bancoQuestoes:{id:"bancoQuestoes",tier:"treino",tag:"Treino diário · Assinatura",titulo:"Banco de Questões — 10.000 questões",descricao:"Volume de treino para transformar conteúdo em velocidade e repertório de prova.",idealPara:"Quem precisa de repetição para consolidar a preparação.",preco:"Plano mensal · consulte as condições atuais",ctaLabel:"Conhecer o banco",ctaHref:LINKS.bancoQuestoes},
+    cursoCN_EPCAr:{id:"cursoCN_EPCAr",tier:"aprofunda",tag:"Curso gravado + solucionários",titulo:"Matemática CN/EPCAr + TAE e TGE",descricao:"Teoria de Álgebra, Aritmética e Geometria com as 689 questões do Capeta Azul e o TGE resolvidos em vídeo.",idealPara:"Quem quer uma trilha ampla de Matemática para CN ou EPCAr.",preco:"83h53 · 12× de R$ 75 · garantia de 7 dias",ctaLabel:"Ver trilha de Matemática",ctaHref:LINKS.cursoCN_EPCAr,saibaMaisLabel:"Ver página do Colégio Naval",saibaMaisHref:"curso-colegio-naval/"},
+    cursoEPCAr:{id:"cursoEPCAr",tier:"aprofunda",tag:"Curso multidisciplinar",titulo:"Todas as disciplinas — CN + EPCAr",descricao:"Curso publicado como EPCAr, com todas as disciplinas para CN/EPCAr e os solucionários TGE e Capeta Azul.",idealPara:"Quem busca uma preparação multidisciplinar para CN ou EPCAr.",preco:"151h22 · 12× de R$ 70,58 · confirme na plataforma",ctaLabel:"Ver curso multidisciplinar",ctaHref:LINKS.cursoEPCAr},
     cursoCalculo:{id:"cursoCalculo",tier:"aprofunda",tag:"Foco Escola Naval",titulo:"Curso de Cálculo — EN e EFOMM",descricao:"Limites, derivadas, regra de L’Hôpital, integrais e aplicações para provas que exigem conteúdo avançado.",idealPara:"Quem vai prestar Escola Naval e precisa organizar Cálculo Diferencial e Integral.",preco:"Consulte as condições atuais na plataforma",ctaLabel:"Ver curso de Cálculo",ctaHref:LINKS.cursoCalculo},
-    pacoteBestSeller:{id:"pacoteBestSeller",tier:"aprofunda",tag:"★ Best Seller",titulo:"Pacote CN/EPCAr — Álgebra + Geometria",descricao:"Matemática completa com TAE e TGE resolvidos. O pacote mais vendido da plataforma.",idealPara:"Quem quer o combo campeão de álgebra + geometria resolvidos.",preco:"12× de R$ 75 · garantia de 7 dias",ctaLabel:"Ver pacote",ctaHref:LINKS.pacoteBestSeller},
-    pacoteTGE_TAE:{id:"pacoteTGE_TAE",tier:"aprofunda",tag:"Álgebra + Geometria resolvidas",titulo:"Pacote Duplo — TGE + TAE",descricao:"Geometria + Álgebra Elementar resolvidas em vídeo. Base militar universal (AFA, EsPCEx, EN, EFOMM).",idealPara:"Quem faz concurso militar e quer dominar álgebra e geometria.",preco:"R$ 600 · acesso imediato",ctaLabel:"Ver pacote duplo",ctaHref:LINKS.pacoteTGE_TAE,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
-    solucionarioTGE:{id:"solucionarioTGE",tier:"destrava",tag:"Geometria destravada",titulo:"Solucionário Geo. Plana + Teoria",descricao:"Resolução completa de geometria plana com teoria embutida. Reforço rápido.",idealPara:"Quem trava na geometria e quer resolver em vídeo.",preco:"6× de R$ 60 · acesso imediato",ctaLabel:"Ver solucionário de geometria",ctaHref:LINKS.solucionarioTGE},
+    pacoteTGE_TAE:{id:"pacoteTGE_TAE",tier:"aprofunda",tag:"Álgebra + Geometria resolvidas",titulo:"Pacote Duplo — TGE + TAE",descricao:"Geometria e Álgebra Elementar resolvidas em vídeo para concursos militares.",idealPara:"Quem quer dominar Álgebra e Geometria por questões.",preco:"R$ 451 · condição consultada em 10/08/2026",ctaLabel:"Ver pacote duplo",ctaHref:LINKS.pacoteTGE_TAE,saibaMaisLabel:"Ver todos os cursos",saibaMaisHref:LINKS.todosCursos},
+    solucionarioTGE:{id:"solucionarioTGE",tier:"destrava",tag:"Geometria destravada",titulo:"Solucionário Geo. Plana + Teoria",descricao:"Resolução de geometria plana com teoria integrada.",idealPara:"Quem trava na geometria e quer estudar por resoluções em vídeo.",preco:"6× de R$ 60 · acesso pela plataforma",ctaLabel:"Ver solucionário de geometria",ctaHref:LINKS.solucionarioTGE},
     whatsapp:{id:"whatsapp",tier:"apoio",tag:"Fale com a equipe",titulo:"Ainda com dúvida? Entre em contato",descricao:"Conte seu concurso e seu momento para receber uma orientação antes de decidir.",idealPara:"Quem quer confirmar o melhor caminho antes da compra.",preco:"Atendimento pela página de contato",ctaLabel:"Abrir contato",ctaHref:LINKS.whatsapp}
   };
 
@@ -179,15 +177,13 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
 
   // Preserva a campanha que trouxe o visitante sem atribuir tráfego direto a um canal fictício.
   var inboundParams = new URLSearchParams(window.location.search);
-  var attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term"];
-  var hasInboundAttribution = attributionKeys.some(function(key){return inboundParams.has(key);});
+  var attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_id", "utm_term", "utm_content"];
   function attributedUrl(href, content){
     var url = new URL(href, window.location.href);
     attributionKeys.forEach(function(key){
       var value = inboundParams.get(key);
       if(value && !url.searchParams.has(key)) url.searchParams.set(key,value);
     });
-    if(hasInboundAttribution && content && !url.searchParams.has("utm_content")) url.searchParams.set("utm_content",content);
     return url.toString();
   }
 
@@ -202,7 +198,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
   // ---- Regras de recomendação ----
   var CONCURSOS_MILITARES = ["efomm","afa","escola-naval","espcex"];
   function dedup(itens){var v={};return itens.filter(function(it){if(v[it.id])return false;v[it.id]=1;return true;});}
-  function cursoAncora(c){if(c==="colegio-naval"||c==="epcar")return{id:"cursoCN_EPCAr"};if(c==="escola-naval")return{id:"cursoCalculo"};if(CONCURSOS_MILITARES.indexOf(c)>-1)return{id:"pacoteTGE_TAE"};return{id:"pacoteBestSeller"};}
+  function cursoAncora(c){if(c==="colegio-naval"||c==="epcar")return{id:"cursoCN_EPCAr"};if(c==="escola-naval")return{id:"cursoCalculo"};if(CONCURSOS_MILITARES.indexOf(c)>-1)return{id:"pacoteTGE_TAE"};return{id:"cursoCN_EPCAr"};}
 
   function getRecommendation(a){
     var concurso=a.concurso, formato=a.formato, tempo=a.tempo;
@@ -212,7 +208,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
       return {headline:"Vamos descobrir seu caminho juntos",
         sub:"Sem concurso definido, comece pelos campeões de venda e teste de graça. Se surgir dúvida, fale com a equipe.",
         mood:"inicio",whatsapp:true,gratis:true,itens:dedup([
-          {id:"pacoteBestSeller",destaque:true,selo:"MAIS VENDIDO",motivo:"O pacote que mais aprova: álgebra + geometria resolvidas."},
+          {id:"cursoCN_EPCAr",destaque:true,selo:"TRILHA DE MATEMÁTICA",motivo:"Teoria para CN/EPCAr com Álgebra e Geometria resolvidas em vídeo."},
           {id:"solucionario",motivo:"Se você já tem (ou vai pegar) o livro, é o jeito mais rápido de evoluir."},
           {id:"livro",motivo:"A base física para começar do jeito certo."},
           {id:"bancoQuestoes",motivo:"Treino diário para transformar estudo em reflexo."}])};
@@ -224,7 +220,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
         mood:"completo",whatsapp:false,gratis:false,itens:dedup([
           Object.assign({},cursoC,{destaque:true,selo:"PLANO COMPLETO",motivo:"O centro de tudo: preparação guiada do básico ao avançado."}),
           {id:"solucionario",motivo:"Para destravar cada questão difícil do livro em vídeo."},
-          {id:"bancoQuestoes",motivo:"Treino diário com +10.000 questões militares."},
+          {id:"bancoQuestoes",motivo:"Treino diário com 10.000 questões militares."},
           {id:"livro",motivo:"A base física que sustenta toda a preparação."}])};
     }
 
@@ -245,7 +241,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
       sub="Videoaula é o seu formato — então o curso é o centro, com solucionário e banco reforçando.";
       itens=[Object.assign({},curso,{destaque:true,selo:"RECOMENDADO",motivo:"Sua preparação principal em vídeo, do básico ao avançado."}),
         {id:"solucionario",motivo:"Resolução das questões do Capeta Azul, passo a passo."},
-        {id:"bancoQuestoes",motivo:"Treino diário com a maior base de questões militares."}];
+        {id:"bancoQuestoes",motivo:"Treino diário com 10.000 questões militares."}];
     } else if(formato==="resolucoes"){
       headline="Resoluções comentadas — direto ao ponto";
       sub="Você quer entender o raciocínio das questões. Começa pelo solucionário e reforça com o banco.";
@@ -255,28 +251,28 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
         Object.assign({},curso,{motivo:"Para quando quiser a preparação completa."})];
     } else if(formato==="reta-final"){
       headline="Modo Reta Final ativado";
-      sub="Sem tempo a perder: treino intensivo com o banco + resolução rápida em vídeo. Tudo com acesso imediato.";
+      sub="Sem tempo a perder: treino intensivo com o banco e correção rápida pelas resoluções em vídeo.";
       mood="reta_final";
       itens=[{id:"bancoQuestoes",destaque:true,selo:"RETA FINAL",motivo:"Simule o dia da prova: volume alto de questões, todo dia."},
-        {id:"solucionario",selo:"ACESSO IMEDIATO",motivo:"Destrave em vídeo o que ainda te derruba, sem enrolação."},
+        {id:"solucionario",selo:"ACESSO DIGITAL",motivo:"Destrave em vídeo o que ainda derruba sua pontuação."},
         Object.assign({},curso,{motivo:"Se ainda houver fôlego, aprofunde nos pontos fracos."})];
     } else {
       itens=[Object.assign({},curso,{destaque:true,selo:"RECOMENDADO",motivo:"Sua preparação principal, guiada e completa."}),
         {id:"solucionario",motivo:"Para destravar as questões difíceis do livro."},
-        {id:"bancoQuestoes",motivo:"Treino diário com +10.000 questões."},
+        {id:"bancoQuestoes",motivo:"Treino diário com 10.000 questões."},
         {id:"livro",motivo:"A base física da preparação."}];
     }
 
-    if(concurso==="epcar") itens.push({id:"cursoEPCAr",motivo:"Alternativa mais enxuta, focada só no EPCAr."});
+    if(concurso==="epcar") itens.push({id:"cursoEPCAr",motivo:"Opção multidisciplinar com todas as disciplinas e os solucionários TGE e Capeta Azul."});
 
     if(urgente){
       mood="reta_final";
       if(headline==="Plano recomendado para você"||formato==="videoaulas") headline="Menos de 30 dias — foco total na reta final";
-      sub="A menos de 30 dias, o que vale é acesso imediato e volume de questões. Deixei o físico por último de propósito.";
+      sub="A menos de 30 dias, priorize materiais digitais e volume de questões. Deixei o físico por último de propósito.";
       var prio=["bancoQuestoes","solucionario"];
       itens.sort(function(x,y){var ix=prio.indexOf(x.id),iy=prio.indexOf(y.id);return (ix===-1?99:ix)-(iy===-1?99:iy);});
       if(itens[0]){itens[0].destaque=true;itens[0].selo="RETA FINAL";}
-      itens=itens.map(function(it){return (it.id==="solucionario"&&!it.selo)?Object.assign({},it,{selo:"ACESSO IMEDIATO"}):it;});
+      itens=itens.map(function(it){return (it.id==="solucionario"&&!it.selo)?Object.assign({},it,{selo:"ACESSO DIGITAL"}):it;});
     } else if(comecando){
       mood="inicio"; gratis=true;
       if(headline==="Plano recomendado para você") headline="Começando agora? Bem-vindo ao jogo";
@@ -323,7 +319,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
       +'<div class="cdm-insignia">&Sigma;</div>'
       +'<h1 class="cdm-brand">DEUS DA <span>MATEM&Aacute;TICA</span></h1>'
       +'<p class="cdm-sub">Descubra o melhor material para sua aprova&ccedil;&atilde;o</p>'
-      +'<div class="cdm-authority"><span>IME</span><i>&middot;</i><span>12 medalhas</span><i>&middot;</i><span>+1000 aprovados</span><i>&middot;</i><span>6 livros</span></div>'
+      +'<div class="cdm-authority"><span>IME</span><i>&middot;</i><span>Escola Naval</span><i>&middot;</i><span>18+ anos</span><i>&middot;</i><span>6 livros</span></div>'
       +'</header>';
   }
 
@@ -378,7 +374,7 @@ body{font-family:'Poppins',system-ui,-apple-system,sans-serif;color:#fff;line-he
       }
       html+='<div class="cdm-cards">'+cards+'</div>';
       // trust
-      html+='<div class="cdm-trust"><span>&#128737;&#65039; 7 dias de garantia</span><i>&middot;</i><span>&#9889; acesso imediato</span><i>&middot;</i><span>&#9733; 5,0 no ML</span></div>';
+      html+='<div class="cdm-trust"><span>&#128737;&#65039; condições na página de compra</span><i>&middot;</i><span>&#128279; links oficiais</span><i>&middot;</i><span>&#129517; recomendação personalizada</span></div>';
       // gratis
       if(rec.gratis){
         html+='<div class="cdm-free"><p class="cdm-eyebrow" style="margin-bottom:10px">Comece de gra&ccedil;a hoje</p>'

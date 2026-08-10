@@ -1,13 +1,13 @@
-name: Generate pages and sitemap
+name: Validate static pages and sitemap
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  generate:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,17 +19,5 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run generator
+      - name: Validate site
         run: python generate_site.py
-
-      - name: Commit generated files
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          if git diff --cached --quiet; then
-            echo "Nenhuma alteração para commitar."
-          else
-            git commit -m "gera paginas, sitemap e robots"
-            git push
-          fi

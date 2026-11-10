@@ -1,0 +1,14 @@
+name: PEDRA keep-alive
+# Mantém o PEDRA (Render, plano grátis) acordado: 1 acesso a cada 10 minutos.
+# Pode ser apagado quando o plano pago do Render for ativado.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Acessa o PEDRA
+        run: curl -fsS -m 120 -o /dev/null -w "%{http_code} em %{time_total}s\n" https://pedra-api.onrender.com/ || true

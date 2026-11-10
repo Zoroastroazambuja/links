@@ -1,1 +1,145 @@
-<!DOCTYPE html><title>Solucionário Capeta Azul</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solucionário Capeta Azul — as questões resolvidas em vídeo por Bruno Pedra</title>
+<meta name="description" content="As questões do Capeta Azul (Tópicos de Álgebra Elementar) resolvidas em vídeo, passo a passo, por Bruno Pedra. Para Colégio Naval, EPCAr, EsPCEx, EFOMM, AFA, EN, IME e ITA.">
+<style>
+:root{--azul:#0b2a6f;--azul2:#123c9c;--tinta:#0e1424;--cinza:#5b6475;--papel:#f6f7fb;--ouro:#f5b400;--branco:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--tinta);background:var(--papel);line-height:1.55;font-size:18px}
+h1,h2,h3,.btn,.selo,.num,nav,.preco{font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--azul);color:var(--branco);padding:56px 0 64px;position:relative;overflow:hidden}
+header:after{content:"x² + px + q";position:absolute;right:-20px;bottom:-34px;font-size:120px;font-style:italic;opacity:.07;white-space:nowrap}
+.selo{display:inline-block;border:1px solid rgba(255,255,255,.45);padding:5px 12px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px}
+h1{font-size:clamp(32px,6.4vw,54px);line-height:1.08;letter-spacing:-.01em;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--ouro)}
+header p{font-size:20px;max-width:620px;color:#dfe6fb}
+.btn{display:inline-block;background:var(--ouro);color:#1b1400;font-weight:700;font-size:19px;padding:17px 30px;border-radius:6px;text-decoration:none;margin-top:28px}
+.btn:hover,.btn:focus{background:#ffc928;outline:3px solid #fff;outline-offset:2px}
+.sub{font-size:15px;color:#c7d2f5;margin-top:12px;font-family:"Trebuchet MS",Arial,sans-serif}
+section{padding:56px 0}
+h2{font-size:clamp(25px,4.4vw,34px);line-height:1.15;margin-bottom:18px;color:var(--azul)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:-34px;position:relative}
+.num{background:var(--branco);border-top:4px solid var(--ouro);padding:18px 16px;box-shadow:0 6px 18px rgba(11,42,111,.10)}
+.num b{display:block;font-size:30px;color:var(--azul);line-height:1.1}
+.num span{font-size:14px;color:var(--cinza)}
+ul.lista{list-style:none;margin-top:8px}
+ul.lista li{padding:13px 0 13px 34px;border-bottom:1px solid #dfe3ee;position:relative}
+ul.lista li:before{content:"→";position:absolute;left:0;color:var(--azul2);font-weight:700;font-family:Arial,sans-serif}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:10px}
+.col{background:var(--branco);padding:22px;border:1px solid #dfe3ee}
+.col h3{font-size:18px;margin-bottom:10px}
+.col.sim{border:2px solid var(--azul)}
+.col.sim h3{color:var(--azul)}
+.col p{font-size:16.5px;margin-bottom:9px}
+.autor{background:var(--branco);border-left:6px solid var(--azul);padding:26px}
+.oferta{background:var(--azul);color:var(--branco);text-align:center;padding:60px 0}
+.oferta h2{color:var(--branco)}
+.preco{font-size:64px;font-weight:700;color:var(--ouro);line-height:1;margin:14px 0 4px}
+.oferta p{color:#dfe6fb;max-width:560px;margin:0 auto}
+details{background:var(--branco);border:1px solid #dfe3ee;margin-bottom:10px;padding:16px 18px}
+summary{font-family:"Trebuchet MS",Arial,sans-serif;font-weight:700;cursor:pointer;color:var(--azul)}
+details p{margin-top:10px;font-size:17px}
+footer{padding:28px 0 90px;font-size:14px;color:var(--cinza);text-align:center;font-family:Arial,sans-serif}
+.fixo{position:fixed;left:0;right:0;bottom:0;background:var(--branco);border-top:1px solid #d5daE8;padding:10px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;font-family:"Trebuchet MS",Arial,sans-serif;z-index:5}
+.fixo b{color:var(--azul);font-size:15px}
+.fixo a{background:var(--ouro);color:#1b1400;font-weight:700;padding:11px 18px;border-radius:6px;text-decoration:none;white-space:nowrap}
+@media(max-width:640px){body{font-size:17px}.duas{grid-template-columns:1fr}.fixo{display:flex}header{padding:40px 0 56px}.preco{font-size:52px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="selo">Solucionário Capeta Azul</span>
+    <h1>Travou numa questão do Capeta Azul? <em>Veja ela sendo resolvida.</em></h1>
+    <p>As questões do livro Tópicos de Álgebra Elementar resolvidas em vídeo, uma a uma, por Bruno Pedra, um dos autores do livro.</p>
+    <a class="btn" href="https://pay.hotmart.com/K106231115F?checkoutMode=10&sck=lp_topo">Quero o Solucionário</a>
+    <div class="sub">R$ 300 · acesso por 2 anos · pagamento pela Hotmart</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="nums">
+    <div class="num"><b>580</b><span>soluções em vídeo já no ar</span></div>
+    <div class="num"><b>689</b><span>questões do livro: as demais entram conforme o upload termina</span></div>
+    <div class="num"><b>2 anos</b><span>de acesso</span></div>
+    <div class="num"><b>Desde 2007</b><span>Bruno prepara para concursos militares</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>O livro é difícil de propósito. Ficar sozinho nele, não precisa ser.</h2>
+    <p>"Capeta azul" virou apelido de questão difícil entre quem estuda para concurso militar. O problema de um livro assim é conhecido: você trava numa questão, perde a tarde, olha o gabarito e continua sem saber <em>como</em> se chega lá.</p>
+    <ul class="lista">
+      <li>Cada questão tem a própria solução em vídeo, do enunciado à resposta.</li>
+      <li>Você vê o caminho, não só o resultado: qual ideia abre a questão e por quê.</li>
+      <li>Organizado por capítulo, na ordem do livro. Achou a questão, achou o vídeo.</li>
+      <li>Serve para quem estuda para Colégio Naval, EPCAr, EsPCEx, EFOMM, AFA, Escola Naval, IME e ITA.</li>
+    </ul>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Estudar com e sem o Solucionário</h2>
+    <div class="duas">
+      <div class="col">
+        <h3>Só com o livro</h3>
+        <p>Trava e não tem a quem perguntar.</p>
+        <p>O gabarito diz a letra, não o caminho.</p>
+        <p>Pula as questões mais difíceis, que são as que mais ensinam.</p>
+      </div>
+      <div class="col sim">
+        <h3>Com o Solucionário</h3>
+        <p>Trava, assiste, entende e segue para a próxima.</p>
+        <p>Aprende a ideia que resolve a questão.</p>
+        <p>Faz o livro inteiro, inclusive as difíceis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Quem resolve</h2>
+    <div class="autor">
+      <p><strong>Bruno Pedra</strong> é professor de matemática desde 2007 e coautor do Capeta Azul. Saiu de Belford Roxo, na Baixada Fluminense, estudando por livros, e foi aprovado em EPCAr, Colégio Naval, AFA, EFOMM, Escola Naval e IME, onde estudou e se tornou oficial da reserva.</p>
+      <p style="margin-top:12px">É medalhista da OMERJ, da OBM e de olimpíadas internacionais, e já teve mais de 1.000 alunos aprovados.</p>
+    </div>
+  </div>
+</section>
+
+<div class="oferta">
+  <div class="wrap">
+    <h2>Solucionário Capeta Azul</h2>
+    <div class="preco">R$ 300</div>
+    <p>Acesso por 2 anos a todas as soluções em vídeo. Na página de pagamento você pode incluir o livro impresso no mesmo pedido.</p>
+    <a class="btn" href="https://pay.hotmart.com/K106231115F?checkoutMode=10&sck=lp_oferta">Comprar agora</a>
+    <div class="sub">Compra pela Hotmart, com parcelamento no cartão.</div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Preciso ter o livro?</summary><p>Sim. O Solucionário resolve as questões do Capeta Azul (Tópicos de Álgebra Elementar). Se você ainda não tem, dá para incluir o livro impresso no mesmo pedido, na página de pagamento.</p></details>
+    <details><summary>Todas as 689 questões já estão no ar?</summary><p>Hoje são 580 soluções disponíveis. As demais estão sendo enviadas e entram no seu acesso automaticamente, sem custo extra.</p></details>
+    <details><summary>Por quanto tempo tenho acesso?</summary><p>Por 2 anos a partir da compra.</p></details>
+    <details><summary>Onde assisto?</summary><p>Na área de membros da Hotmart, pelo computador ou pelo celular. O acesso chega no seu e-mail logo após a confirmação do pagamento.</p></details>
+    <details><summary>Serve para o meu concurso?</summary><p>O livro cobre a álgebra cobrada em Colégio Naval, EPCAr, EsPCEx, EFOMM, AFA, Escola Naval, IME e ITA. Se o seu concurso cobra álgebra nesse nível, serve.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Deus da Matemática · Bruno Pedra · @brunpedra</div>
+</footer>
+
+<div class="fixo"><b>Solucionário · R$ 300</b><a href="https://pay.hotmart.com/K106231115F?checkoutMode=10&sck=lp_fixo">Comprar</a></div>
+
+</body>
+</html>
